@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hija del Sol — Sol y Sombra Wines</title>
+    <meta name="description"
+        content="El nuevo viñedo Hija del Sol en Tupungato. Un proyecto de Sol y Sombra Wines cultivando a más de 1200 metros de altura.">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Barlow+Condensed:wght@300;400;500;600&family=Josefin+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── HERO 100vh ── */
+        .hija-hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #0e0b09;
+        }
+
+        .hija-hero__bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Suavizamos el oscurecimiento para mayor transparencia visual */
+            filter: brightness(0.85) contrast(1.1);
+            z-index: 0;
+        }
+
+        .hija-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(14, 11, 9, 0.1) 0%, rgba(14, 11, 9, 0.5) 100%);
+            z-index: 1;
+        }
+
+        .hija-hero__content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: var(--sp-2);
+            padding-inline: var(--sp-3);
+        }
+
+
+
+        /* El Logo sobre la imagen */
+        .hija-hero__logo {
+            height: clamp(80px, 14vw, 130px);
+            width: auto;
+            max-width: 80vw;
+            margin-bottom: var(--sp-2);
+            filter: drop-shadow(0 4px 30px rgba(0, 0, 0, 0.5)) brightness(0) invert(1);
+        }
+
+        /* Títulos */
+        .hija-hero__subtitle {
+            font-family: var(--ff-ui);
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--clr-gold-pale);
+            margin-bottom: 0.5rem;
+        }
+
+        .hija-hero__title {
+            font-family: var(--ff-display);
+            font-size: clamp(3rem, 7vw, 6rem);
+            color: var(--clr-white);
+            line-height: 1.0;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ── NEW LAYOUT (Referencia) ── */
+        .hija-content {
+            background-color: var(--clr-dark-mid);
+            color: var(--clr-white);
+            padding: clamp(6rem, 12vw, 10rem) var(--sp-4) clamp(4rem, 8vw, 6rem);
+        }
+
+        .hija-container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* Título Principal de la sección */
+        .hija-content__main-title {
+            font-family: var(--ff-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--clr-gold);
+            line-height: 1.1;
+            margin-bottom: var(--sp-4);
+            font-weight: 400;
+        }
+
+        /* Wrapper para texto e imagen */
+        .hija-content__grid {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: var(--sp-5);
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hija-content {
+                padding: 2rem 1rem;
+            }
+
+            .hija-content__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Contenido de texto */
+        .hija-content__text {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-3);
+            /* Espacio reducido entre los elementos de esta columna */
+        }
+
+
+
+        .hija-content__subtitle {
+            font-family: var(--ff-display);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: var(--clr-white);
+            margin-bottom: var(--sp-2);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .hija-content__subtitle em {
+            font-family: var(--ff-serif);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--clr-gold-pale);
+        }
+
+        .hija-content__article p {
+            color: var(--clr-off-white);
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+            line-height: 1.78;
+            opacity: 0.88;
+            margin-bottom: var(--sp-2);
+        }
+
+        .hija-content__article p strong,
+        .hija-futuro__cols p strong {
+            color: var(--clr-gold);
+            font-weight: 500;
+        }
+
+        /* ── SECCIÓN FUTURO (Full Width) ── */
+        .hija-futuro {
+            margin-top: clamp(5rem, 10vw, 8rem);
+        }
+
+        .hija-futuro__title {
+            font-family: var(--ff-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--clr-white);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.1;
+        }
+
+        .hija-futuro__title em {
+            font-family: var(--ff-serif);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--clr-gold);
+        }
+
+        .hija-futuro__cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+        }
+
+        .hija-futuro__cols p {
+            font-family: var(--ff-body);
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+            color: var(--clr-off-white);
+            line-height: 1.8;
+            opacity: 0.88;
+        }
+
+        @media (max-width: 768px) {
+            .hija-futuro__cols {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hija-content__divider {
+            height: 1px;
+            background: rgba(198, 168, 124, 0.3);
+            /* clr-gold-pale con transparencia */
+            margin-block: var(--sp-4);
+            width: 100%;
+        }
+
+        .hija-content__conclusion {
+            font-family: var(--ff-body);
+            font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+            color: var(--clr-gold);
+            line-height: 1.6;
+        }
+
+        /* Imagen Lateral */
+        .hija-content__img-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(500px, 60vh, 800px);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hija-content__img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* ── STATS (Tupungato) FRONTEND DESIGN ── */
+        .hija-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: var(--sp-2);
+            margin-bottom: var(--sp-2);
+        }
+
+        .hija-stat-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(180deg, rgba(198, 168, 124, 0.03) 0%, transparent 100%);
+            border-top: 2px solid var(--clr-gold);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hija-stat-badge:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(180deg, rgba(198, 168, 124, 0.08) 0%, transparent 100%);
+            border-top-color: var(--clr-white);
+        }
+
+        .hija-stat-badge strong {
+            color: var(--clr-gold);
+            font-family: var(--ff-display);
+            font-size: clamp(2.2rem, 3.5vw, 3rem);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .hija-stat-badge strong span {
+            font-size: 0.5em;
+        }
+
+        .hija-stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hija-stat-content span {
+            color: var(--clr-gold-pale);
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+            font-family: var(--ff-ui);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .hija-stat-content p {
+            font-family: var(--ff-body);
+            font-size: 1rem !important;
+            color: var(--clr-off-white);
+            opacity: 0.7;
+            margin: 0 !important;
+            line-height: 1.5 !important;
+        }
+
+        @media (max-width: 900px) {
+            .hija-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hija-stat-badge {
+                flex-direction: row;
+                align-items: center;
+                gap: 1.5rem;
+                padding: 1.5rem 1rem;
+                background: linear-gradient(90deg, rgba(198, 168, 124, 0.03) 0%, transparent 100%);
+                border-top: none;
+                border-left: 2px solid var(--clr-gold);
+            }
+
+            .hija-stat-badge:hover {
+                transform: translateX(10px);
+                background: linear-gradient(90deg, rgba(198, 168, 124, 0.08) 0%, transparent 100%);
+                border-left-color: var(--clr-white);
+                border-top-color: transparent;
+            }
+
+            .hija-stat-badge strong {
+                font-size: 2.5rem;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hija-stat-badge {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* ── TIMELINE ── */
+        .hija-timeline {
+            position: relative;
+            background-color: var(--clr-dark);
+            padding: clamp(6rem, 12vw, 8rem) var(--sp-4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            overflow: hidden;
+            min-height: 50vh;
+        }
+
+        .hija-timeline__bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            filter: brightness(0.4) saturate(1.2);
+            /* Oscurecida para contrastar con el panel */
+        }
+
+        .hija-timeline__panel {
+            position: relative;
+            z-index: 2;
+            background-color: rgba(14, 11, 9, 0.35);
+            /* Fondo más transparente */
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius-md);
+            padding: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
+            /* Padding algo más compacto */
+            margin: 1rem;
+            /* Margen para asegurar que en móviles no toque los bordes */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(2rem, 5vw, 4rem);
+            flex-wrap: wrap;
+            border: 1px solid rgba(198, 168, 124, 0.3);
+            width: fit-content;
+            /* Se adapta al contenido en lugar de forzar el máximo */
+            max-width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .hija-timeline__step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .hija-timeline__step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            /* centro del círculo */
+            left: calc(100% + 1rem);
+            width: 2rem;
+            height: 1px;
+            background: rgba(198, 168, 124, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hija-timeline__step:not(:last-child)::after {
+                display: none;
+            }
+
+            .hija-timeline__panel {
+                flex-direction: column;
+                gap: var(--sp-4);
+                width: fit-content;
+                /* Deja de forzar el anho y se adapta a su contenido */
+                min-width: 150px;
+                /* Asegurar un min-width para elegancia */
+                padding: clamp(2.5rem, 5vw, 3rem) 2rem;
+            }
+        }
+
+        .hija-timeline__circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--clr-gold);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hija-timeline__circle--active {
+            background-color: var(--clr-gold);
+        }
+
+
+
+        .hija-timeline__year {
+            font-family: var(--ff-ui);
+            color: var(--clr-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.2rem;
+            text-align: center;
+        }
+
+        .hija-timeline__label {
+            font-family: var(--ff-body);
+            color: var(--clr-off-white);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="site-header" id="site-header">
+        <a href="index.html" class="header-logo" aria-label="Sol y Sombra – Inicio">
+            <img src="assets/img/brand-logo.svg" alt="Sol y Sombra" class="logo-img">
+        </a>
+        <nav class="site-nav" id="site-nav">
+            <ul>
+                <li><a href="index.html#inicio">Inicio</a></li>
+                <li><a href="index.html#vinos">Vinos</a></li>
+                <li><a href="historia.html">Nuestra Historia</a></li>
+                <li><a href="hijadelsol.html" class="active">Hija del Sol</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menú" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="header-progress" aria-hidden="true">
+            <div class="header-progress__bar" id="scroll-progress-bar"></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ── HERO: PANTALLA COMPLETA ── -->
+        <section class="hija-hero">
+            <!-- Background Image -->
+            <img src="assets/img/hija-hero.avif" alt="Viñedo Hija del Sol" class="hija-hero__bg" loading="eager">
+            <div class="hija-hero__overlay"></div>
+
+            <div class="hija-hero__content">
+
+
+                <!-- Logo sobre la imagen -->
+                <img src="assets/img/brand-logo.svg" alt="Sol y Sombra Wines" class="hija-hero__logo">
+
+                <!-- Título -->
+                <p class="hija-hero__subtitle">Nueva Viña en Tupungato</p>
+                <h1 class="hija-hero__title">Hija del Sol</h1>
+            </div>
+
+            <!-- Scroll Hint (Igual que el Index) -->
+            <div class="hero__scroll-hint" aria-hidden="true">
+                <span>Scroll</span>
+                <div class="hero__scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ── CONTENIDO PRINCIPAL (MAX 1140px) ── -->
+        <section class="hija-content" style="position: relative; overflow: hidden;">
+            <img src="assets/img/parra_1.svg" alt="" class="decor-illustration decor-illustration--gold"
+                style="top: 2%; left: -5%; width: 500px; transform: rotate(15deg); opacity: 0.04;">
+            <img src="assets/img/Parra_2.svg" alt="" class="decor-illustration decor-illustration--gold"
+                style="bottom: 5%; right: -5%; width: 500px; transform: rotate(-10deg); opacity: 0.04;">
+            <div class="hija-container">
+
+                <div class="hija-content__grid">
+                    <!-- Columna de Texto -->
+                    <div class="hija-content__text">
+
+                        <article class="hija-content__article">
+                            <span class="label label--gold" style="margin-bottom: 0.5rem;">El Proyecto</span>
+                            <h2 class="hija-content__subtitle">Una Joya en el<br><em>Corazón de Tupungato</em></h2>
+                            <p>A los pies majestuosos de la cordillera de los Andes, nace "Hijas del Sol". Este proyecto
+                                no es solo una nueva viña para Sol y Sombra; <strong>es la evolución natural de un
+                                    legado
+                                    familiar.</strong> Aquí, la tradición vitivinícola se encuentra con la fuerza de un
+                                terroir
+                                virgen, preparando la tierra para los grandes vinos del mañana.</p>
+                        </article>
+
+                        <article class="hija-content__article">
+                            <p>Elegimos Tupungato porque la montaña no acepta concesiones. Su geografía extrema forja el
+                                carácter de las vides, exigiéndoles lo mejor para sobrevivir. Aquí, las vides absorberán
+                                <strong>la identidad inconfundible que solo esta tierra puede conferir.</strong>
+                            </p>
+                        </article>
+
+                    </div>
+
+                    <!-- Columna de Imagen -->
+                    <div class="hija-content__img-wrapper">
+                        <img src="assets/img/hija-gallery-1.jpg" alt="Tractor y viñas" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- ── STATS / BADGES (Debajo de imagen y texto) ── -->
+                <div class="hija-stats" style="margin-top: clamp(3rem, 6vw, 5rem);">
+                    <div class="hija-stat-badge">
+                        <strong>+1.100<span>m</span></strong>
+                        <div class="hija-stat-content">
+                            <span>Altitud Extrema</span>
+                            <p>Pieles más gruesas y colores profundos</p>
+                        </div>
+                    </div>
+                    <div class="hija-stat-badge">
+                        <strong>Aluvial</strong>
+                        <div class="hija-stat-content">
+                            <span>Suelo Mineral</span>
+                            <p>Regala estructura, tensión y elegancia</p>
+                        </div>
+                    </div>
+                    <div class="hija-stat-badge">
+                        <strong>Térmica</strong>
+                        <div class="hija-stat-content">
+                            <span>Amplitud Uco</span>
+                            <p>Fija aromas intensos y acidez viva</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN FUTURO (FULL WIDTH) -->
+                <article class="hija-futuro">
+                    <div style="display: flex; justify-content: center; margin-bottom: 0.5rem;">
+                        <span class="label label--gold">El Legado</span>
+                    </div>
+                    <h2 class="hija-futuro__title">Un Futuro Brillante<br><em>para Sol y Sombra</em></h2>
+                    <div class="hija-futuro__cols">
+                        <p>La incorporación de "Hijas del Sol" marcará un nuevo capítulo en nuestra historia; uno que
+                            sigue honrando las raíces de cuatro generaciones mientras abraza el futuro con audacia. Esta
+                            nueva viña es mucho más que una expansión: <strong>es la manifestación de un sueño que hemos
+                                comenzado a cultivar con devoción y paciencia.</strong></p>
+                        <p>En Sol y Sombra no apuramos a la naturaleza; la acompañamos. Cada brote que cuidamos hoy es
+                            una promesa de excelencia superior que requerirá años de silencio bajo tierra y barrica.
+                            Cuando finalmente descorches la primera botella de esta tierra, <strong>sentirás la fuerza
+                                de toda
+                                una montaña en tu copa.</strong> La espera será, sin duda, la mejor parte del viaje.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ── TIMELINE ── -->
+        <section class="hija-timeline">
+            <!-- Imagen de fondo -->
+            <img src="assets/img/hija-gallery-2.jpg" alt="Viñedo Tupungato" class="hija-timeline__bg" loading="lazy">
+
+            <div class="hija-timeline__panel">
+
+                <div class="hija-timeline__step">
+                    <div class="hija-timeline__circle hija-timeline__circle--active">
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 5L4.5 8.5L13 1" stroke="#25201b" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="hija-timeline__year">2025</span>
+                    <span class="hija-timeline__label">PLANTACIÓN</span>
+                </div>
+
+                <div class="hija-timeline__step">
+                    <div class="hija-timeline__circle"></div>
+                    <span class="hija-timeline__year">2027</span>
+                    <span class="hija-timeline__label">PRIMERA COSECHA</span>
+                </div>
+
+                <div class="hija-timeline__step">
+                    <div class="hija-timeline__circle"></div>
+                    <span class="hija-timeline__year">2029</span>
+                    <span class="hija-timeline__label">PRIMERA BOTELLA</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════
+             CONTACTO / NEWSLETTER
+        ══════════════════════════════════════ -->
+        <section class="contacto" id="contacto"
+            style="border-top: 1px solid rgba(198,168,124,0.1); position: relative; overflow: hidden;">
+            <img src="assets/img/man.svg" alt="" class="decor-illustration decor-illustration--gold decor-illustration--visible-mobile contacto__bg-image">
+            <div class="container contacto__inner">
+
+                <div class="contacto__info">
+                    <span class="label label--gold">Contacto</span>
+                    <h2 class="contacto__title">Hablemos</h2>
+                    <div class="contacto__details">
+                        <div class="contacto__item">
+                            <div class="contacto__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div class="contacto__item-content">
+                                <em>Dirección</em>
+                                <p>Portugal 1202<br>Godoy Cruz - Mendoza</p>
+                            </div>
+                        </div>
+                        <div class="contacto__item">
+                            <div class="contacto__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            </div>
+                            <div class="contacto__item-content">
+                                <em>WhatsApp</em>
+                                <a href="https://wa.me/5492617599941" target="_blank">+54 9 261 759 9941</a>
+                            </div>
+                        </div>
+                        <div class="contacto__item">
+                            <div class="contacto__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </div>
+                            <div class="contacto__item-content">
+                                <em>Instagram</em>
+                                <a href="https://www.instagram.com/solysombra.mza?igsh=MXgwdmI1enU2NXRjdw==" target="_blank" class="contacto__instagram-link">@solysombra.mza</a>
+                            </div>
+                        </div>
+                        <div class="contacto__item">
+                            <div class="contacto__icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            </div>
+                            <div class="contacto__item-content">
+                                <em>E-mail</em>
+                                <a href="mailto:solysombra.personal@gmail.com?subject=Consulta%20Sol%20y%20Sombra">solysombra.personal@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contacto__newsletter">
+                    <h3 class="contacto__news-title">Red de Comercialización</h3>
+                    <p class="contacto__news-desc">Si deseas distribuir nuestros vinos o incorporarlos en tu vinoteca o restaurante, ponte en contacto con nosotros por el medio que prefieras.</p>
+                    <div class="contacto__news-actions">
+                        <a href="mailto:solysombra.personal@gmail.com?subject=Consulta%20Comercial%20-%20Sol%20y%20Sombra" class="btn btn--outline-gold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            Enviar Mail
+                        </a>
+                        <a href="https://wa.me/5492617599941" target="_blank" class="btn btn--whatsapp-elegant">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ══════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════ -->
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <img src="assets/img/brand-logo.svg" alt="Sol y Sombra" class="footer-logo"
+                style="filter: brightness(0) invert(1);">
+            <div class="footer-links">
+                <a href="historia.html">Nuestra Historia</a>
+                <a href="clasica.html">Línea Clásica</a>
+                <a href="reserva.html">Reserva</a>
+                <a href="hijadelsol.html" class="active">Hija del Sol</a>
+            </div>
+            <span class="footer-lang">ES · <span class="footer-lang--off">EN</span></span>
+        </div>
+        <p class="site-footer__legal">© 2026 Sol y Sombra Wines · Mendoza, Argentina · Beber con moderación.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
