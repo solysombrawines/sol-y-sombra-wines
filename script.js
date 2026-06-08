@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quote: 'Joven, floral y de aroma elegante.',
             image: 'assets/img/cabfranc-varietal.webp',
             tech: {
+                'Alcohol': '13.5%',
                 'Perfil': 'Vino joven floral, de aroma elegante',
                 'En boca': 'Taninos presentes pero suaves',
                 'Viñedo': 'Cordón del Plata, Tupungato (Viñedos propios)',
@@ -197,11 +198,12 @@ document.addEventListener('DOMContentLoaded', () => {
             quote: 'La paciencia de la sombra condensada en cada sorbo.',
             image: 'assets/img/malbec-reserva.webp',
             tech: {
-                'Alcohol': '14.5%',
+                'Alcohol': '13.5%',
                 'Cosecha': 'Manual, selección de racimos',
-                'Viñedo': 'Parcela Histórica, Tupungato',
-                'Altitud': '+1.150 m.s.n.m.',
-                'Crianza': 'Fudres de hormigón para el intercambio de aire y crianza en botella',
+                'Viñedo': 'Finca Los Chicos, Cordón del Plata, Tupungato',
+                'Altitud': '1.100 m.s.n.m.',
+                'Suelo': 'Formación aluvional, arenoso a franco arenoso',
+                'Crianza': 'Fudres de hormigón y 15% de crianza en barrica de roble',
                 'Temp. de servicio': '18°C',
                 'Guarda': '8 a 10 años',
                 'Maridaje': ['Ojo de bife', 'Cordero', 'Quesos curados']
@@ -215,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quote: 'Moderno y ligero pero de tipicidad inconfundible.',
             image: 'assets/img/cabfranc-reserva.webp',
             tech: {
+                'Alcohol': '13.5%',
                 'Perfil': 'Más especiado que el varietal, aroma persistente',
                 'En boca': 'Ligero, final intermedio y taninos presentes',
                 'Estilo': 'Moderno, respecting las características típicas',
