@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructivo de Configuración - Sol y Sombra Wines</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS Variables matching brand identity */
+    :root {
+      --clr-shadow:    #4a2824;  /* Pantone 478U — Borgoña oscuro cálido */
+      --clr-bone:      #d8cfc5;  /* Pantone 481U 70% — Hueso / Taupe */
+      --clr-sky:       #6e8db0;  /* Pantone 652U — Azul pizarra */
+      --clr-sky-light: #b5c7da;  /* Pantone 651U 70% — Celeste claro */
+      --clr-gold:      #b9975b;  /* Oro mate principal */
+      --clr-gold-pale: #d4b47a;  /* Oro pálido hover */
+      --clr-dark:      #0e0b09;  /* Fondo principal / Sombra profunda */
+      --clr-dark-card: #181412;  /* Fondo de tarjetas */
+      --clr-white:     #ffffff;
+      --clr-success:   #4caf50;
+      
+      --ff-display: 'Cinzel', serif;
+      --ff-serif:   'Cormorant Garamond', serif;
+      --ff-body:    'Plus Jakarta Sans', sans-serif;
+      --ff-body-cond: 'Barlow Condensed', sans-serif;
+      --ff-ui:      'Josefin Sans', sans-serif;
+      
+      --sidebar-width: 280px;
+      --transition-speed: 0.3s;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--clr-dark);
+      color: var(--clr-bone);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Selection Color */
+    ::selection {
+      background: var(--clr-shadow);
+      color: var(--clr-gold);
+    }
+
+    /* Layout structure */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Navigation Sidebar (Desktop) */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(180deg, var(--clr-dark-card) 0%, var(--clr-dark) 100%);
+      border-right: 1px solid rgba(185, 151, 91, 0.15);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      padding: 2.5rem 1.5rem;
+      overflow-y: auto;
+    }
+
+    .brand-header {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .brand-logo {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      color: var(--clr-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-subtitle {
+      font-family: var(--ff-serif);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--clr-sky-light);
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      color: var(--clr-bone);
+      text-decoration: none;
+      font-family: var(--ff-ui);
+      font-weight: 400;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      transition: all var(--transition-speed) ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item a:hover {
+      background: rgba(185, 151, 91, 0.08);
+      color: var(--clr-gold);
+      padding-left: 1.25rem;
+    }
+
+    .nav-item.active a {
+      background: rgba(185, 151, 91, 0.12);
+      color: var(--clr-gold);
+      border-left-color: var(--clr-gold);
+      font-weight: 600;
+    }
+
+    /* Main Content Area */
+    .content-area {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 4rem 3rem;
+      max-width: 1000px;
+    }
+
+    /* Page Title & Intro */
+    .intro-section {
+      margin-bottom: 3rem;
+      border-bottom: 1px solid rgba(216, 207, 197, 0.1);
+      padding-bottom: 2rem;
+    }
+
+    .page-title {
+      font-family: var(--ff-display);
+      font-size: 2.5rem;
+      color: var(--clr-gold);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .page-description {
+      font-family: var(--ff-serif);
+      font-size: 1.25rem;
+      color: var(--clr-bone);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    /* Banners & Cards */
+    .info-banner {
+      background: rgba(74, 40, 36, 0.25);
+      border-left: 4px solid var(--clr-shadow);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      color: var(--clr-bone);
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .info-banner strong {
+      color: var(--clr-gold-pale);
+      font-family: var(--ff-ui);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .warning-banner {
+      background: rgba(185, 151, 91, 0.08);
+      border-left: 4px solid var(--clr-gold);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      color: var(--clr-bone);
+      margin: 1.5rem 0;
+    }
+
+    .warning-banner strong {
+      color: var(--clr-gold);
+      font-family: var(--ff-ui);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Guide Section Cards */
+    .guide-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 2rem;
+    }
+
+    /* Sticky Header for each section */
+    .section-header {
+      position: sticky;
+      top: 0;
+      background: rgba(14, 11, 9, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.5rem 0 1rem 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(185, 151, 91, 0.15);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: 1.6rem;
+      color: var(--clr-gold);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .section-badge {
+      font-family: var(--ff-ui);
+      font-size: 0.8rem;
+      background: var(--clr-shadow);
+      color: var(--clr-gold-pale);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Content styling - Beautiful prose */
+    .section-body {
+      margin-bottom: 2rem;
+    }
+
+    .section-body p {
+      margin-bottom: 1.2rem;
+      color: var(--clr-bone);
+      opacity: 0.95;
+      font-size: 1.05rem;
+    }
+
+    .section-body h3 {
+      font-family: var(--ff-ui);
+      font-size: 1.15rem;
+      color: var(--clr-gold);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-left: 2px solid var(--clr-gold);
+      padding-left: 0.75rem;
+    }
+
+    .section-body ul, .section-body ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .section-body li {
+      font-size: 1.05rem;
+    }
+
+    .section-body li strong {
+      color: var(--clr-gold-pale);
+    }
+
+    .section-body code {
+      font-family: 'Courier New', Courier, monospace;
+      background: rgba(185, 151, 91, 0.12);
+      color: var(--clr-gold-pale);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .section-body a {
+      color: var(--clr-gold);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--clr-gold);
+      transition: all var(--transition-speed) ease;
+    }
+
+    .section-body a:hover {
+      color: var(--clr-gold-pale);
+      border-bottom-style: solid;
+    }
+
+    /* Action card to group visual guide and copy button */
+    .action-panel {
+      background: var(--clr-dark-card);
+      border: 1px solid rgba(185, 151, 91, 0.12);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .action-text {
+      flex: 1;
+    }
+
+    .action-text h4 {
+      font-family: var(--ff-ui);
+      font-size: 0.9rem;
+      color: var(--clr-sky-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+
+    .action-text p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      color: var(--clr-bone);
+    }
+
+    /* Copy Button styled as premium gold button */
+    .btn-copy {
+      font-family: var(--ff-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: transparent;
+      color: var(--clr-gold);
+      border: 1px solid var(--clr-gold);
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all var(--transition-speed) ease;
+      white-space: nowrap;
+    }
+
+    .btn-copy:hover {
+      background: var(--clr-gold);
+      color: var(--clr-dark);
+      box-shadow: 0 0 12px rgba(185, 151, 91, 0.3);
+    }
+
+    .btn-copy.copied {
+      background: var(--clr-success);
+      border-color: var(--clr-success);
+      color: var(--clr-dark);
+    }
+
+    /* Hidden element for storing raw text to copy */
+    .hidden-copy-data {
+      display: none;
+    }
+
+    /* Mobile Header & Hamburger Menu Button */
+    .mobile-bar {
+      display: none;
+      background-color: var(--clr-dark-card);
+      border-bottom: 1px solid rgba(185, 151, 91, 0.15);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      z-index: 110;
+      padding: 0 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-title {
+      font-family: var(--ff-display);
+      font-size: 1.1rem;
+      color: var(--clr-gold);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .menu-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      z-index: 120;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background-color: var(--clr-gold);
+      transition: all var(--transition-speed) ease;
+    }
+
+    /* Hamburger Active Animation */
+    .menu-toggle.active span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Mobile Menu Drawer Overlay */
+    .mobile-drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 104;
+      opacity: 0;
+      transition: opacity var(--transition-speed) ease;
+    }
+
+    .mobile-drawer-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Mobile Menu Drawer */
+    .mobile-drawer {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: -100%;
+      width: 290px;
+      background-color: var(--clr-dark-card);
+      border-left: 1px solid rgba(185, 151, 91, 0.2);
+      z-index: 105;
+      padding: 5rem 2rem 2rem 2rem;
+      transition: right var(--transition-speed) ease;
+      overflow-y: auto;
+    }
+
+    .mobile-drawer.active {
+      right: 0;
+    }
+
+    .mobile-drawer .nav-menu {
+      gap: 1rem;
+    }
+
+    .mobile-drawer .nav-item a {
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
+
+    /* Scrollspy target highlight effect */
+    .target-highlight {
+      animation: flash 1.5s ease-out;
+    }
+
+    @keyframes flash {
+      0% { background-color: rgba(185, 151, 91, 0.1); }
+      100% { background-color: transparent; }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+      .mobile-bar {
+        display: flex;
+      }
+      .content-area {
+        margin-left: 0;
+        padding: 6rem 1.5rem 3rem 1.5rem;
+      }
+      .page-title {
+        font-size: 2rem;
+      }
+      .section-header {
+        top: 60px; /* Offset for mobile bar */
+        padding: 1rem 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .section-title {
+        font-size: 1.3rem;
+        width: 100%;
+      }
+      .action-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-copy {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Bar Header -->
+  <div class="mobile-bar">
+    <a href="#" class="mobile-title">Sol y Sombra</a>
+    <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer-overlay" id="drawer-overlay"></div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <ul class="nav-menu">
+      <li class="nav-item" data-section="inicio"><a href="#inicio">Inicio</a></li>
+      <li class="nav-item" data-section="zoho-acceso"><a href="#zoho-acceso">1. Zoho Acceso</a></li>
+      <li class="nav-item" data-section="zoho-gmail"><a href="#zoho-gmail">2. Zoho con Gmail</a></li>
+      <li class="nav-item" data-section="gmail-maestro"><a href="#gmail-maestro">3. Gmail Maestro</a></li>
+      <li class="nav-item" data-section="github"><a href="#github">4. GitHub</a></li>
+      <li class="nav-item" data-section="netlify"><a href="#netlify">5. Netlify</a></li>
+      <li class="nav-item" data-section="dominio"><a href="#dominio">6. Dominio Wix (2027)</a></li>
+    </ul>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- Navigation Sidebar (Desktop) -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <a href="#" class="brand-logo">Sol y Sombra</a>
+        <div class="brand-subtitle">Manual de Entrega</div>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li class="nav-item active" data-section="inicio"><a href="#inicio">Inicio</a></li>
+          <li class="nav-item" data-section="zoho-acceso"><a href="#zoho-acceso">1. Zoho Acceso</a></li>
+          <li class="nav-item" data-section="zoho-gmail"><a href="#zoho-gmail">2. Zoho con Gmail</a></li>
+          <li class="nav-item" data-section="gmail-maestro"><a href="#gmail-maestro">3. Gmail Maestro</a></li>
+          <li class="nav-item" data-section="github"><a href="#github">4. GitHub</a></li>
+          <li class="nav-item" data-section="netlify"><a href="#netlify">5. Netlify</a></li>
+          <li class="nav-item" data-section="dominio"><a href="#dominio">6. Dominio Wix (2027)</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      
+      <!-- Section: Inicio -->
+      <section id="inicio" class="guide-section">
+        <div class="intro-section">
+          <h1 class="page-title">Manual de Cuentas y Accesos</h1>
+          <p class="page-description">"El Sol madura la uva, pero la Sombra de la bodega preserva y forja su carácter"</p>
+          <p>Bienvenido al panel web oficial para la administración de las plataformas digitales de la bodega. En las secciones siguientes encontrarás las guías de configuración y los pasos detallados para cambiar las claves de los servicios y correos corporativos.</p>
+          
+          <div class="info-banner">
+            <strong>🔒 Nota de Seguridad Importante</strong>
+            <p>Por motivos de confidencialidad, las contraseñas iniciales han sido entregadas mediante un canal seguro de visualización única. Asegúrate de guardarlas y cambiarlas siguiendo las instrucciones correspondientes.</p>
+          </div>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 0</h4>
+            <p>Introducción de seguridad para compartir con el equipo por WhatsApp.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg0', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg0">Chicos, ¡cómo están! Les escribo para dejarles toda la información de acceso y configuración de las cuentas oficiales de la web (*Zoho Mail, GitHub y Netlify*). 
+
+Para proteger la seguridad de su proyecto, *les voy a pasar las contraseñas iniciales en una imagen de visualización única aquí por WhatsApp* (o mediante un enlace seguro temporal que se autodestruye al abrirse). De esta forma evitamos que las claves queden guardadas en texto plano en el historial del chat para siempre.
+
+A continuación, les paso en mensajes separados el instructivo de qué es cada cuenta, cómo cambiar las claves al ingresar por primera vez y cómo configurar su correo corporativo.</div>
+      </section>
+
+      <!-- Section: Zoho Acceso -->
+      <section id="zoho-acceso" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">1. Zoho Mail: Acceso Inicial</h2>
+          <span class="section-badge">Correo</span>
+        </header>
+        
+        <div class="section-body">
+          <p>Este es su correo profesional corporativo. La cuenta principal creada es:</p>
+          
+          <div class="warning-banner">
+            <strong>Detalles de Cuenta</strong>
+            • <strong>Usuario:</strong> <code>ventas@solysombrawines.com</code><br>
+            • <strong>Web de acceso:</strong> <a href="https://mail.zoho.com" target="_blank">mail.zoho.com</a><br>
+            • <strong>Contraseña:</strong> <em>[Clave provista de forma segura]</em>
+          </div>
+
+          <h3>¿Cómo cambiar la contraseña al ingresar por primera vez?</h3>
+          <p>Para garantizar que la cuenta sea privada y segura, realicen el cambio de clave siguiendo estos pasos:</p>
+          <ol>
+            <li>Inicien sesión en <a href="https://mail.zoho.com" target="_blank">mail.zoho.com</a> con el usuario y contraseña temporal.</li>
+            <li>Hagan clic en su <strong>foto de perfil o avatar</strong> situado en la esquina superior derecha.</li>
+            <li>Seleccionen la opción <strong>"Mi cuenta"</strong> (My Account). Esto abrirá la pestaña con los ajustes personales de seguridad.</li>
+            <li>En la barra lateral izquierda, vayan a la pestaña de <strong>Seguridad</strong> (Security).</li>
+            <li>Hagan clic en el apartado <strong>Contraseña</strong> (Password).</li>
+            <li>Coloquen la clave temporal que les pasamos, elijan su nueva contraseña y guarden.</li>
+          </ol>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 1</h4>
+            <p>Paso a paso de acceso a Zoho Mail e instrucciones de cambio de clave.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg1', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg1">*✉️ ZOHO MAIL - CORREO PROFESIONAL*
+
+Este es su correo profesional corporativo. La cuenta principal que creamos es: *ventas@solysombrawines.com*.
+
+*¿Cómo ingresar por primera vez?*
+1. Entren a la web oficial: https://mail.zoho.com
+2. Coloquen el usuario *ventas@solysombrawines.com* y la contraseña temporal que les pasé.
+
+*¿Cómo cambiar la contraseña de Zoho Mail de inmediato?*
+Para que la cuenta quede bajo su total control y seguridad, les sugerimos cambiar la clave en su primer ingreso:
+1. Una vez dentro de Zoho Mail, hagan clic en su foto de perfil (arriba a la derecha).
+2. Seleccionen la opción *"Mi cuenta"* (My Account). Se abrirá una pestaña nueva con el panel de seguridad de Zoho.
+3. En el menú de la izquierda, vayan a *Seguridad* (Security).
+4. Hagan clic en la sección *Contraseña* (Password).
+5. Coloquen la contraseña temporal que les di, escriban su nueva contraseña segura y hagan clic en guardar.</div>
+      </section>
+
+      <!-- Section: Zoho con Gmail -->
+      <section id="zoho-gmail" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">2. Integración de Zoho Mail con Gmail</h2>
+          <span class="section-badge">Configuración</span>
+        </header>
+        
+        <div class="section-body">
+          <p>Tienen actualmente dos formas alternativas de gestionar las casillas profesionales:</p>
+          <ul>
+            <li><strong>Opción Gratis (Plataforma Zoho):</strong> Utilicen la interfaz web en <a href="https://mail.zoho.com" target="_blank">mail.zoho.com</a> o la app móvil oficial de <strong>Zoho Mail</strong> para iOS y Android. Es 100% gratuita.</li>
+            <li><strong>Opción Integrada con Gmail (Opción de Pago):</strong> Les permite enviar y recibir correos de la cuenta profesional directamente desde su cuenta de Gmail personal de toda la vida. Requiere contratar el plan <strong>Zoho Mail Lite</strong> para habilitar las conexiones IMAP y SMTP.</li>
+          </ul>
+
+          <div class="warning-banner">
+            <strong>Costos de Zoho Mail Lite</strong>
+            • <strong>Facturación anual:</strong> Aprox. <strong>U$S 1.00</strong> mensuales por usuario.<br>
+            • <strong>Facturación mensual:</strong> Aprox. <strong>U$S 1.25</strong> mensuales por usuario.
+          </div>
+
+          <h3>Pasos de Integración con tu Gmail Personal:</h3>
+          
+          <h3>Paso A: Actualización del Plan</h3>
+          <p>Inicien sesión en Zoho Mail con la cuenta administradora. Hagan clic en su foto de perfil > <strong>Consola de administración</strong> (Admin Console) > <strong>Facturación</strong> (Billing). Elijan el plan <strong>Mail Lite (5 GB)</strong> y carguen su tarjeta.</p>
+          
+          <h3>Paso B: Activar puertos POP e IMAP</h3>
+          <p>En Zoho Mail, vayan a <strong>Configuración</strong> (icono de engranaje) > <strong>Cuentas de correo</strong> (Mail Accounts) > sección <strong>Acceso POP/IMAP</strong>, y asegúrense de marcar como habilitados tanto el protocolo IMAP como el POP.</p>
+
+          <h3>Paso C: Configurar Reenvío de Zoho a Gmail</h3>
+          <p>Para recibir los mails corporativos en Gmail en tiempo real:</p>
+          <ol>
+            <li>En la <strong>Configuración</strong> de Zoho Mail, busquen la opción <strong>Reenvío de correo</strong> (Mail Forwarding).</li>
+            <li>Hagan clic en <strong>Agregar dirección de reenvío</strong> (Add forwarding).</li>
+            <li>Introduzcan el correo de Gmail de la bodega (<code>solysombra.personal@gmail.com</code>) y guarden.</li>
+            <li>Abran Gmail, busquen el correo de verificación enviado por Zoho, copien el código de seguridad y péguenlo en la ventana de Zoho para activar el reenvío.</li>
+          </ol>
+
+          <h3>Paso D: Enviar correos como @solysombrawines.com desde Gmail</h3>
+          <p>Para poder responder desde Gmail simulando su dirección corporativa:</p>
+          <ol>
+            <li>Abran su <strong>Gmail</strong> en computadora > <strong>Configuración</strong> (engranaje) > <strong>Ver todos los ajustes</strong>.</li>
+            <li>Entren a la pestaña <strong>Cuentas e importación</strong>. En la sección <strong>"Enviar como:"</strong>, hagan clic en <strong>"Añadir otra dirección de correo electrónico"</strong>.</li>
+            <li>Pongan su nombre en pantalla (ej. <em>Bodega Sol y Sombra</em>) y la dirección profesional <code>ventas@solysombrawines.com</code>. <strong>Desmarquen</strong> la opción "Tratar como un alias" y denle a Siguiente.</li>
+            <li>Completen las credenciales del servidor SMTP:
+              <ul>
+                <li><strong>Servidor SMTP:</strong> <code>smtp.zoho.com</code></li>
+                <li><strong>Puerto:</strong> <code>465</code> (Marcar la casilla de conexión segura por <strong>SSL</strong>).</li>
+                <li><strong>Usuario:</strong> <code>ventas@solysombrawines.com</code></li>
+                <li><strong>Contraseña:</strong> Su contraseña de Zoho Mail. <em>(Nota: Si habilitan verificación de dos pasos en Zoho, recuerden generar una "Contraseña de aplicación" en su panel de Zoho y pegarla aquí)</em>.</li>
+              </ul>
+            </li>
+            <li>Hagan clic en <strong>Añadir cuenta</strong>. Copien el código de confirmación final que recibirán en Gmail y actívenlo. ¡Listo! Al escribir, ya podrán elegir su mail corporativo en el remitente.</li>
+          </ol>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 2</h4>
+            <p>Guía extendida con los pasos técnicos de reenvío e integración en Gmail.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg2', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg2">*⚙️ OPCIONES Y CONFIGURACIÓN DE ZOHO CON GMAIL*
+
+Tienen dos opciones para utilizar su correo *ventas@solysombrawines.com*:
+
+*• Opción Gratis (Directo en Zoho):* Pueden descargar la aplicación oficial *Zoho Mail* en sus celulares (Android o iPhone) o usar la web *mail.zoho.com*. Es 100% gratis.
+
+*• Opción Integrada con Gmail (De Pago):* Si prefieren recibir y responder todos los correos corporativos directamente desde su Gmail personal:
+   - *Costo (Zoho Mail Lite):* Aproximadamente *U$S 1.00* al mes por casilla (si pagan el año entero) o *U$S 1.25* al mes (si pagan mes a mes).
+
+Si deciden contratar el plan *Zoho Mail Lite* para usar Gmail, sigan estos pasos de configuración:
+
+*Paso A: Comprar la licencia en Zoho*
+1. Entren a Zoho Mail y vayan a su panel de administración (haciendo clic en su foto de perfil > *Consola de administración* o *Admin Console*).
+2. Busquen la sección de *Facturación* (Billing) o el botón *Upgrade* (Actualizar).
+3. Seleccionen el plan *Mail Lite (5 GB)* y realicen el pago con tarjeta de crédito.
+
+*Paso B: Habilitar POP y IMAP en Zoho*
+1. Dentro de su correo en Zoho Mail, vayan a *Configuración* (icono de engranaje en la esquina superior derecha).
+2. Entren a *Cuentas de correo* (Mail Accounts) y vayan a la sección *Acceso POP/IMAP*.
+3. Asegúrense de activar las casillas que dicen *Habilitar acceso IMAP* y *Habilitar acceso POP*.
+
+*Paso C: Configurar el reenvío automático (Zoho a Gmail)*
+1. En *Configuración* de Zoho Mail, vayan a *Reenvío de correo* (Mail Forwarding).
+2. Hagan clic en *Agregar dirección de reenvío* (Add forwarding).
+3. Escriban su Gmail de bodega (*solysombra.personal@gmail.com*) y guarden.
+4. Les llegará un mail a su Gmail con un código de verificación. Copien ese código, péguenlo en la pantalla de Zoho Mail para confirmar y dejen el reenvío activo.
+
+*Paso D: Configurar Gmail para "Enviar como" (El camino inverso)*
+1. Abran su *Gmail* en una computadora.
+2. Vayan a *Configuración* (icono de engranaje) > *Ver todos los ajustes*.
+3. Entren a la pestaña *Cuentas e importación*.
+4. En la sección *"Enviar como:"*, hagan clic en *"Añadir otra dirección de correo electrónico"*.
+5. En la ventana emergente:
+   • Pongan su Nombre (ej. *Bodega Sol y Sombra*) y su mail profesional (*ventas@solysombrawines.com*).
+   • *Desmarquen* la casilla "Tratar como un alias" y hagan clic en *Siguiente paso*.
+6. Rellenen los datos de conexión con Zoho:
+   • *Servidor SMTP:* smtp.zoho.com
+   • *Puerto:* 465 (con conexión segura SSL marcada abajo).
+   • *Usuario:* ventas@solysombrawines.com
+   • *Contraseña:* Su contraseña de Zoho Mail. *(Nota: Si tienen la verificación en dos pasos activa en Zoho, deberán ir a la seguridad de Zoho, crear una "Contraseña de aplicación" y usar esa clave generada aquí).*
+   • Hagan clic en *Añadir cuenta*.
+7. Les llegará un código de confirmación a su Gmail. Copien el código, colóquenlo en la casilla de configuración de Gmail y verifiquen.
+8. ¡Listo! Ahora, al redactar un correo en Gmail, verán un menú desplegable en el campo "De:" para elegir con cuál dirección enviar.</div>
+      </section>
+
+      <!-- Section: Gmail Maestro -->
+      <section id="gmail-maestro" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">3. Cuenta de Gmail Maestra</h2>
+          <span class="section-badge">Seguridad</span>
+        </header>
+        
+        <div class="section-body">
+          <p>La dirección de correo electrónico <code>solysombra.personal@gmail.com</code> es la cuenta maestra del proyecto. Fue utilizada como correo principal para registrar los servicios de alojamiento web en la nube y los accesos a los paneles DNS.</p>
+          
+          <div class="info-banner">
+            <strong>💡 Recomendaciones Clave</strong>
+            • <strong>No la compartan</strong> con personas ajenas a la administración de la bodega.<br>
+            • <strong>Activen la verificación en dos pasos</strong> en la configuración de Google.<br>
+            • Mantengan un número de teléfono de recuperación de confianza configurado en la cuenta de Gmail.
+          </div>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 3</h4>
+            <p>Advertencia sobre el cuidado de la cuenta Gmail maestra.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg3', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg3">*⚠️ IMPORTANTE: LA CUENTA DE GMAIL MAESTRA*
+
+Un detalle sumamente importante:
+La dirección de Gmail *solysombra.personal@gmail.com* es el correo "maestro" de todo el proyecto. Está asociada como dirección de recuperación en Zoho, y es el correo con el que registramos GitHub y Netlify.
+
+*Por favor, asegúrense de cuidar esta cuenta:*
+• No pierdan el acceso a ella.
+• No compartan su contraseña con terceros ajenos al proyecto.
+• De ser posible, activen la *Verificación en dos pasos* (con su celular) para mantenerla 100% protegida, ya que si alguien lograra entrar a ese Gmail, podría resetear las claves de toda la infraestructura de la web y el correo profesional.</div>
+      </section>
+
+      <!-- Section: GitHub -->
+      <section id="github" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">4. GitHub: Repositorio</h2>
+          <span class="section-badge">Código</span>
+        </header>
+        
+        <div class="section-body">
+          <p>GitHub es el servidor seguro donde se guarda y gestiona todo el código fuente que compone el sitio web, asegurando que el desarrollo les pertenezca al 100%.</p>
+          
+          <div class="warning-banner">
+            <strong>Credenciales de GitHub</strong>
+            • <strong>Usuario/Correo:</strong> <code>solysombra.personal@gmail.com</code><br>
+            • <strong>Contraseña:</strong> <em>[Clave provista de forma segura]</em><br>
+            • <strong>Enlace del Repositorio:</strong> <a href="https://github.com/solysombrawines/sol-y-sombra-wines" target="_blank">Ver repositorio</a>
+          </div>
+
+          <h3>¿Cómo cambiar la contraseña de GitHub?</h3>
+          <ol>
+            <li>Inicien sesión en <a href="https://github.com" target="_blank">github.com</a> con el usuario y clave provistos.</li>
+            <li>Hagan clic en su foto de perfil en la esquina superior derecha y seleccionen <strong>Settings</strong> (Configuración).</li>
+            <li>En la barra lateral izquierda, entren a la sección <strong>Password and authentication</strong> (Contraseña y autenticación).</li>
+            <li>En la sección <strong>Change password</strong>, completen con la contraseña actual y definan la nueva.</li>
+          </ol>
+          <p><strong>Nota importante del desarrollador:</strong> Yo ya me encuentro asignado como colaborador técnico en el repositorio con mi propia cuenta personal, por lo que una vez que cambien la clave, seguiré teniendo acceso para subir actualizaciones sin necesidad de conocer su nueva contraseña.</p>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 4</h4>
+            <p>Acceso a GitHub e instrucciones para el cambio de clave.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg4', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg4">*📦 GITHUB - COFRE DIGITAL DE LA WEB*
+
+GitHub es la plataforma en la nube donde se encuentra almacenado todo el código fuente, imágenes, estilos y archivos de diseño que dan vida a su página web.
+
+• *Enlace de acceso:* https://github.com
+• *Usuario:* solysombra.personal@gmail.com
+• *Contraseña:* [Te la enviaré por un canal seguro]
+
+*Cómo cambiar la contraseña de GitHub:*
+1. Inicien sesión en https://github.com.
+2. Hagan clic en su foto de perfil (arriba a la derecha) y entren a *Settings* (Configuración).
+3. En la barra lateral izquierda, seleccionen *Password and authentication*.
+4. En el primer apartado, introduzcan la clave actual que les di, configuren su nueva contraseña y guarden.
+
+*Nota de tranquilidad:* No hace falta que me agreguen como colaborador ni que toquen nada más en esta sección. Yo ya quedé asociado externamente al proyecto como programador desde mi cuenta personal, por lo que puedo seguir realizando cambios y actualizaciones técnicas sin necesidad de conocer su nueva contraseña.</div>
+      </section>
+
+      <!-- Section: Netlify -->
+      <section id="netlify" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">5. Netlify: Servidor y Alojamiento</h2>
+          <span class="section-badge">Servidor</span>
+        </header>
+        
+        <div class="section-body">
+          <p>Netlify es la plataforma de infraestructura cloud que se conecta a su GitHub y aloja la web final. Cada vez que realizo un cambio técnico en el código de la página, Netlify lo publica en vivo automáticamente en pocos segundos.</p>
+          
+          <div class="warning-banner">
+            <strong>Credenciales de Netlify</strong>
+            • <strong>Usuario:</strong> <code>solysombra.personal@gmail.com</code><br>
+            • <strong>Contraseña:</strong> <em>[Clave provista de forma segura]</em><br>
+            • <strong>Acceso web:</strong> <a href="https://netlify.com" target="_blank">netlify.com</a>
+          </div>
+
+          <h3>Método de ingreso rápido (Recomendado):</h3>
+          <p>Para evitar tener que escribir contraseñas en Netlify, hagan lo siguiente:</p>
+          <ol>
+            <li>Entren a la página de ingreso en <a href="https://netlify.com" target="_blank">netlify.com</a>.</li>
+            <li>Hagan clic en el botón <strong>"Log in with GitHub"</strong> (Iniciar sesión con GitHub).</li>
+            <li>Al estar ya iniciados en GitHub, el sistema se conectará directamente de manera segura y sin solicitar clave adicional.</li>
+          </ol>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 5</h4>
+            <p>Acceso a Netlify y explicación del hosting costo cero.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg5', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg5">*🌐 NETLIFY - EL SERVIDOR DE LA WEB*
+
+Netlify es el servidor en la nube que aloja su página web de cara al público y la mantiene en línea. Se conecta a su GitHub y, cada vez que yo realizo una actualización en el código, el servidor actualiza la web de forma automática en segundos. Además, el servicio es de *costo $0* de por vida para este tipo de sitios.
+
+• *Enlace de acceso:* https://netlify.com
+• *Cómo ingresar de forma rápida:* 
+   1. En la pantalla de inicio de sesión de Netlify, hagan clic en el botón *"Log in with GitHub"* (Iniciar sesión con GitHub).
+   2. Como ya iniciaron sesión en su cuenta de GitHub en el paso anterior, el sistema los reconocerá y los dejará entrar de forma automática sin tener que memorizar otra contraseña.
+• *Usuario clásico:* solysombra.personal@gmail.com
+• *Contraseña:* [Te la enviaré por un canal seguro]
+
+*Cómo cambiar la contraseña clásica de Netlify:*
+(Solo si prefieren entrar escribiendo la contraseña en vez de usar el botón de GitHub)
+1. Inicien sesión en Netlify.
+2. Hagan clic en su foto de perfil en la parte inferior izquierda de la pantalla y seleccionen *User settings* (Ajustes de usuario).
+3. En la sección *Profile* (Perfil), busquen la opción para editar la contraseña, coloquen la actual, escriban la nueva y guarden.</div>
+      </section>
+
+      <!-- Section: Dominio Wix -->
+      <section id="dominio" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">6. Vencimiento del Dominio (Marzo 2027)</h2>
+          <span class="section-badge">Dominio</span>
+        </header>
+        
+        <div class="section-body">
+          <p>Actualmente, el dominio de su marca <code>solysombrawines.com</code> está registrado en Wix. El contrato y su renovación anual automática vencen el **26 de marzo de 2027**.</p>
+          
+          <h3>Plan del Año 2 (Mudar el Dominio a Cloudflare):</h3>
+          <p>Para consolidar el costo cero de alojamiento mensual y evitar los elevados cargos de hosting integrado en Wix, realizaremos lo siguiente a inicios de marzo de 2027:</p>
+          <ol>
+            <li><strong>Transferir el dominio fuera de Wix:</strong> Pediremos un código de transferencia (Auth Code) desde el panel de dominios de Wix.</li>
+            <li><strong>Importación a Cloudflare:</strong> Crearemos una cuenta de registro de dominio en Cloudflare y pegaremos el código provisto por Wix.</li>
+            <li><strong>Pago de Dominio a costo real:</strong> En Cloudflare, registrarán una tarjeta de crédito para abonar el precio de costo del dominio (aproximadamente entre <strong>U$S 10 y U$S 14 anuales</strong>). Ya no habrá que pagar ningún otro plan mensual o anual de alojamiento en Wix.</li>
+            <li><strong>Dar de baja Wix:</strong> Una vez mudado el dominio, cancelaremos la renovación de Wix Premium por completo. La web seguirá cargando gratis desde Netlify y el correo funcionará desde Zoho con normalidad.</li>
+          </ol>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 6</h4>
+            <p>Instrucciones de planificación de costos y dominio para el segundo año.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg6', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg6">*📅 EL DOMINIO EN EL AÑO 2 (Vencimiento de Wix en Marzo 2027)*
+
+Actualmente, el dominio de su marca (*solysombrawines.com*) está registrado en Wix. Ese abono anual en Wix vence el *26 de marzo de 2027*.
+
+*¿Qué pasará en esa fecha y qué plan tenemos?*
+Para que no tengan que seguir pagando los costosos abonos anuales de Wix (que los obligan a pagar hosting y dominio juntos), a principios de marzo de 2027 haremos una migración del dominio:
+
+1. *Mudar el dominio:* Transferiremos el dominio fuera de Wix y lo traeremos a *Cloudflare* (un administrador de dominios global).
+2. *El Ahorro:* Al hacer esto, daremos de baja definitivamente la cuenta premium de Wix. El alojamiento de su web seguirá siendo *costo $0* de por vida en Netlify/Cloudflare, y ustedes solo tendrán que pagar la renovación anual del dominio en Cloudflare a precio de costo (aproximadamente entre *U$S 10 y U$S 14 anuales*). 
+3. *¿Qué tendrán que hacer ustedes en Marzo de 2027?*
+   • Yo los guiaré en el paso a paso, pero básicamente entraremos a Wix a pedir el "Código de Autorización de Transferencia" (Auth Code).
+   • Entraremos a su cuenta de Cloudflare y realizarán el pago único anual de los U$S 12 del dominio para iniciar la transferencia.
+   • La web y los correos de Zoho seguirán funcionando con total normalidad durante este proceso.</div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JavaScript for Navigation, Hamburger Menu and Scrollspy -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Elements
+      const menuToggle = document.getElementById('menu-toggle-btn');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      const drawerOverlay = document.getElementById('drawer-overlay');
+      const mobileNavLinks = document.querySelectorAll('.mobile-drawer .nav-item a');
+      const desktopNavItems = document.querySelectorAll('.sidebar .nav-item');
+      const mobileNavItems = document.querySelectorAll('.mobile-drawer .nav-item');
+      const sections = document.querySelectorAll('section.guide-section');
+      
+      // Mobile Drawer Toggle logic
+      const toggleDrawer = () => {
+        menuToggle.classList.toggle('active');
+        mobileDrawer.classList.toggle('active');
+        drawerOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileDrawer.classList.contains('active') ? 'hidden' : '';
+      };
+
+      menuToggle.addEventListener('click', toggleDrawer);
+      drawerOverlay.addEventListener('click', toggleDrawer);
+
+      // Close drawer when link clicked
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if(mobileDrawer.classList.contains('active')) {
+            toggleDrawer();
+          }
+        });
+      });
+
+      // Smooth scroll target highlight
+      const highlightTarget = (id) => {
+        const targetElement = document.getElementById(id);
+        if (targetElement) {
+          targetElement.classList.add('target-highlight');
+          setTimeout(() => {
+            targetElement.classList.remove('target-highlight');
+          }, 1500);
+        }
+      };
+
+      // Handle custom clicks on links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href').substring(1);
+          if(targetId) {
+            e.preventDefault();
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              const offset = window.innerWidth <= 900 ? 75 : 20;
+              const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+              const offsetPosition = elementPosition - offset;
+              
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+              
+              // Push history state
+              history.pushState(null, null, '#' + targetId);
+              highlightTarget(targetId);
+            }
+          }
+        });
+      });
+
+      // Scrollspy Logic (Intersection Observer)
+      const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -70% 0px', // Adjust margins to trigger active when header/top of section enters
+        threshold: 0
+      };
+
+      const observerCallback = (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            
+            // Update Desktop Nav
+            desktopNavItems.forEach(item => {
+              if (item.getAttribute('data-section') === sectionId) {
+                item.classList.add('active');
+              } else {
+                item.classList.remove('active');
+              }
+            });
+            
+            // Update Mobile Nav
+            mobileNavItems.forEach(item => {
+              if (item.getAttribute('data-section') === sectionId) {
+                item.classList.add('active');
+              } else {
+                item.classList.remove('active');
+              }
+            });
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      sections.forEach(section => observer.observe(section));
+
+      // Handle load with anchor in URL
+      if (window.location.hash) {
+        const hashId = window.location.hash.substring(1);
+        setTimeout(() => {
+          const targetElement = document.getElementById(hashId);
+          if (targetElement) {
+            const offset = window.innerWidth <= 900 ? 75 : 20;
+            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: elementPosition - offset,
+              behavior: 'smooth'
+            });
+            highlightTarget(hashId);
+          }
+        }, 100);
+      }
+    });
+
+    // Copy to clipboard function
+    function copyText(elementId, btnElement) {
+      const textToCopy = document.getElementById(elementId).innerText;
+      
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        // Change button styling temporarily
+        const originalText = btnElement.innerText;
+        btnElement.innerText = "¡Copiado!";
+        btnElement.classList.add('copied');
+        
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Error al copiar el texto: ', err);
+        alert('No se pudo copiar automáticamente. Por favor, selecciona el texto y cópialo manualmente.');
+      });
+    }
+  </script>
+</body>
+</html>
