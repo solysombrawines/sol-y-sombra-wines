@@ -109,28 +109,30 @@
 
         /* Wrapper para texto e imagen */
         .hija-content__grid {
-            display: grid;
-            grid-template-columns: 1.15fr 1fr;
-            gap: var(--sp-5);
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: var(--sp-4);
         }
 
         @media (max-width: 900px) {
             .hija-content {
                 padding: 2rem 1rem;
             }
-
-            .hija-content__grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* Contenido de texto */
         .hija-content__text {
-            display: flex;
-            flex-direction: column;
-            gap: var(--sp-3);
-            /* Espacio reducido entre los elementos de esta columna */
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: var(--sp-5);
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .hija-content__text {
+                grid-template-columns: 1fr;
+                gap: var(--sp-3);
+            }
         }
 
 
@@ -222,11 +224,11 @@
             line-height: 1.6;
         }
 
-        /* Imagen Lateral */
+        /* Imagen Widescreen */
         .hija-content__img-wrapper {
             position: relative;
             width: 100%;
-            height: clamp(500px, 60vh, 800px);
+            height: clamp(380px, 50vh, 580px);
             border-radius: var(--radius-sm);
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -519,19 +521,21 @@
                     <!-- Columna de Texto -->
                     <div class="hija-content__text">
 
+                        <!-- Columna izquierda: Títulos -->
                         <article class="hija-content__article">
-                            <span class="label label--gold" style="margin-bottom: 0.5rem;">El Proyecto</span>
-                            <h2 class="hija-content__subtitle">Una Joya en el<br><em>Corazón de Tupungato</em></h2>
+                            <span class="label label--gold" style="margin-bottom: 0.5rem; display: inline-block;">El Proyecto</span>
+                            <h2 class="hija-content__subtitle" style="margin-bottom: 0;">Una Joya en el<br><em>Corazón de Tupungato</em></h2>
+                        </article>
+
+                        <!-- Columna derecha: Descripciones -->
+                        <article class="hija-content__article">
                             <p>A los pies majestuosos de la cordillera de los Andes, nace "Hijas del Sol". Este proyecto
                                 no es solo una nueva viña para Sol y Sombra; <strong>es la evolución natural de un
                                     legado
                                     familiar.</strong> Aquí, la tradición vitivinícola se encuentra con la fuerza de un
                                 terroir
                                 virgen, preparando la tierra para los grandes vinos del mañana. La variedad seleccionada para este terroir es el <strong>Sauvignon blanc</strong>, una uva que encontrará en la altitud de Tupungato su expresión más pura y elegante.</p>
-                        </article>
-
-                        <article class="hija-content__article">
-                            <p>Elegimos Tupungato porque la montaña no acepta concesiones. Su geografía extrema forja el
+                            <p style="margin-top: 1.5rem; margin-bottom: 0;">Elegimos Tupungato porque la montaña no acepta concesiones. Su geografía extrema forja el
                                 carácter de las vides, exigiéndoles lo mejor para sobrevivir. Aquí, las vides de Sauvignon blanc absorberán
                                 <strong>la identidad inconfundible que solo esta tierra puede conferir.</strong>
                             </p>
@@ -541,7 +545,7 @@
 
                     <!-- Columna de Imagen -->
                     <div class="hija-content__img-wrapper">
-                        <img src="assets/img/hija-gallery-1.jpg" alt="Viñedo Hija del Sol en Tupungato" loading="lazy">
+                        <img src="assets/img/hija-gallery-1.png" alt="Viñedo Hija del Sol en Tupungato" loading="lazy">
                     </div>
                 </div>
 
