@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /instructivo.html
+Disallow: /instrucciones.html
+
+Sitemap: https://solysombrawines.com/sitemap.xml
