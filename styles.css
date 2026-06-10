@@ -2077,7 +2077,7 @@ em {
 
 .contacto__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.85fr 1.15fr; /* El formulario abarca un poco más de la mitad en desktop */
     gap: var(--sp-5);
     align-items: center;
 }
@@ -2892,7 +2892,8 @@ em {
 
 .wine-modal__inner {
     position: relative;
-    background-color: var(--clr-dark-mid, #181512);
+    --modal-bg: var(--clr-dark-mid, #181512);
+    background-color: var(--modal-bg);
     width: 100%;
     max-width: 1000px;
     height: 85vh;
@@ -2930,10 +2931,10 @@ em {
 }
 
 /* Close & Nav buttons */
-.wine-modal__close,
-.wine-modal__nav {
+.wine-modal__close {
     position: absolute;
     top: 1.5rem;
+    right: 1.5rem;
     background: transparent;
     border: none;
     color: var(--clr-white);
@@ -2944,25 +2945,41 @@ em {
     line-height: 1;
 }
 
-.wine-modal__close:hover,
-.wine-modal__nav:hover {
+.wine-modal__close:hover {
     color: var(--clr-gold);
 }
 
-.wine-modal__close {
-    right: 1.5rem;
+.wine-modal__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(24, 21, 18, 0.65); /* Círculo oscuro translúcido */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--clr-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.wine-modal__nav:hover {
+    background: var(--clr-gold);
+    border-color: var(--clr-gold);
+    color: var(--clr-dark);
 }
 
 .wine-modal__nav--prev {
-    left: 1.5rem;
-    font-size: 1.8rem;
-    top: 1.6rem;
+    left: 1rem; /* Posicionado dentro del modal (lado izquierdo) */
 }
 
 .wine-modal__nav--next {
-    left: 4.5rem;
-    font-size: 1.8rem;
-    top: 1.6rem;
+    right: 1.2rem; /* Posicionado dentro del modal (lado derecho, junto a barra de scroll) */
 }
 
 /* Content Layout */
@@ -2972,6 +2989,11 @@ em {
     height: 100%;
     align-items: stretch;
     /* Llena la altura completa */
+    transition: opacity 0.2s ease-in-out;
+}
+
+.wine-modal__content.fade-out {
+    opacity: 0;
 }
 
 .wine-modal__col-img {
@@ -2991,7 +3013,7 @@ em {
 .wine-modal__col-info {
     display: flex;
     flex-direction: column;
-    padding: clamp(3rem, 5vw, 4rem) 3rem 3rem 3rem;
+    padding: clamp(1.8rem, 3.5vw, 2.2rem) 3rem 0 3rem; /* Padding bottom 0 para evitar espacio doble */
     overflow-y: auto;
     /* El scroll sucede SÓLO aquí */
     scrollbar-width: thin;
@@ -3052,7 +3074,7 @@ em {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Espaciado compacto y elegante antes de los botones */
 }
 
 .wine-tech-sheet dt {
@@ -3088,41 +3110,65 @@ em {
     align-self: flex-start;
 }
 
-/* Responsivo */
 @media (max-width: 900px) {
     .wine-modal__inner {
         height: 90vh;
-        /* En mobile, asegurar máximo alto del viewport visible */
+        overflow: hidden; /* Mantiene la ventana fija para que los botones de cerrar y nav queden estáticos */
     }
 
     .wine-modal__content {
-        grid-template-columns: 1fr;
-        grid-template-rows: 40vh 1fr;
-        /* Dividir pantalla (Imagen arriba, Info scrolleable abajo) */
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto; /* El scroll sucede a nivel de contenido (imagen + info) */
+        height: 100%;
+        position: relative;
     }
 
     .wine-modal__col-img {
-        min-height: 0;
-        /* Deja que el grid dicte la altura */
+        height: 380px; /* Altura fija para la botella */
+        flex-shrink: 0;
     }
 
     .wine-modal__col-info {
-        padding: 3rem 2rem 2rem;
+        padding: 1.8rem 2rem 0 2rem; /* Relleno superior reducido y padding-bottom 0 para evitar espacio doble */
+        overflow-y: visible; /* Desactiva scroll interno */
+    }
+
+    .wine-modal__actions {
+        position: sticky;
+        bottom: 0;
+        margin-bottom: 0;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem; /* Espacio visible debajo del botón en celulares (Medida A) */
+        background: linear-gradient(to top, var(--modal-bg, #181512) 75%, transparent);
+    }
+
+    .wine-tech-sheet {
+        margin-bottom: 2rem; /* Espaciado compacto antes de los botones en móvil */
     }
 
     .wine-modal__close {
+        position: absolute; /* Queda estático al tope de .wine-modal__inner */
         top: 1rem;
         right: 1rem;
+        z-index: 200;
+    }
+
+    .wine-modal__nav {
+        position: absolute; /* Queda estático a los lados de .wine-modal__inner */
+        top: 50%; /* Centrado vertical en la modal */
+        transform: translateY(-50%);
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
     }
 
     .wine-modal__nav--prev {
-        left: 1rem;
-        top: 1rem;
+        left: 0.5rem;
     }
 
     .wine-modal__nav--next {
-        left: 3.5rem;
-        top: 1rem;
+        right: 0.5rem;
     }
 }
 
@@ -3131,17 +3177,28 @@ em {
 
 /* Modificador Light Theme (Línea Varietal) */
 .wine-modal--light .wine-modal__inner {
-    background-color: var(--clr-bone);
+    --modal-bg: var(--clr-bone);
+    background-color: var(--modal-bg);
 }
 
-.wine-modal--light .wine-modal__close,
-.wine-modal--light .wine-modal__nav {
+.wine-modal--light .wine-modal__close {
     color: var(--clr-dark);
 }
 
-.wine-modal--light .wine-modal__close:hover,
-.wine-modal--light .wine-modal__nav:hover {
+.wine-modal--light .wine-modal__close:hover {
     color: var(--clr-gold);
+}
+
+.wine-modal--light .wine-modal__nav {
+    background: rgba(216, 207, 197, 0.85); /* Círculo hueso translúcido */
+    border: 1px solid rgba(14, 11, 9, 0.15);
+    color: var(--clr-dark);
+}
+
+.wine-modal--light .wine-modal__nav:hover {
+    background: var(--clr-dark);
+    border-color: var(--clr-dark);
+    color: var(--clr-bone);
 }
 
 .wine-modal--light .wine-modal__title {
@@ -3273,4 +3330,594 @@ em {
 
 .contacto__instagram-link {
     transition: color 0.3s ease !important;
+}
+
+/* ==========================================================================
+   NUEVOS ESTILOS: ACCIONES MODAL Y FORMULARIO DE CONTACTO PREMIUM (UX)
+   ========================================================================== */
+
+/* Acciones en el Modal de Vino */
+.wine-modal__actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-top: auto; /* Empuja el contenedor hacia abajo si hay espacio de sobra */
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    margin-bottom: 0;
+    padding-top: 2rem; /* Medida B: incrementado por 0.5rem para mayor separación */
+    padding-bottom: 1.5rem; /* Medida A: espacio debajo */
+    z-index: 10;
+    background: linear-gradient(to top, var(--modal-bg, #181512) 75%, transparent);
+}
+
+.wine-modal__actions .wine-modal__cta {
+    flex: 1;
+    min-width: 150px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-block: 0.8rem;
+    font-size: clamp(0.7rem, 1.1vw, 0.75rem); /* Reducido para evitar doble línea */
+    letter-spacing: 2px; /* Reducido de 3.5px para ahorrar espacio horizontal */
+    white-space: nowrap; /* Evita que el texto se parta en doble línea */
+}
+
+@media (max-width: 600px) {
+    .wine-modal__actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .wine-modal__actions .wine-modal__cta {
+        width: 100%;
+    }
+}
+
+/* Botón de WhatsApp particular para el modal (Outlined de Coherencia) */
+.btn--whatsapp-modal {
+    background-color: transparent;
+    color: var(--clr-gold);
+    border: 1px solid var(--clr-gold);
+    transition: background-color 0.3s var(--ease-out), border-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.btn--whatsapp-modal:hover {
+    background-color: rgba(37, 211, 102, 0.08); /* Fondo translúcido verde WhatsApp */
+    border-color: #25d366; /* Borde verde brillante WhatsApp en hover */
+    color: #25d366 !important;
+}
+
+/* Modificaciones específicas para el modal en su versión clara (Varietal) */
+.wine-modal--light .btn--whatsapp-modal {
+    color: #143d2c !important; /* Verde bosque oscuro para excelente contraste sobre fondo claro (#d8cfc5) */
+    border-color: #143d2c;
+}
+
+.wine-modal--light .btn--whatsapp-modal:hover {
+    background-color: rgba(20, 61, 44, 0.08); /* Fondo verde translúcido */
+    border-color: #1a523b; /* Verde bosque más oscuro en hover para alto contraste */
+    color: #143d2c !important;
+}
+
+/* Mejora de accesibilidad para el botón de Distribuidor en el modal claro */
+.wine-modal--light .wine-modal__actions .js-modal-distributor-cta {
+    color: var(--clr-dark);
+    border-color: var(--clr-dark);
+}
+
+.wine-modal--light .wine-modal__actions .js-modal-distributor-cta:hover {
+    background-color: var(--clr-dark);
+    color: var(--clr-bone) !important;
+}
+
+/* Contenedor del Formulario */
+.contacto__form-container {
+    flex: 1;
+    background-color: rgba(24, 21, 18, 0.45);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(185, 151, 91, 0.2);
+    border-radius: var(--radius-md);
+    padding: clamp(1.5rem, 3vw, 2.2rem); /* Relleno compactado para reducir la altura */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); /* Sombra rebajada y mucho más sutil */
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+/* Highlight al hacer click desde el modal */
+.contacto__form-container.form-highlight {
+    animation: formPulse 2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes formPulse {
+    0% {
+        border-color: var(--clr-gold);
+        box-shadow: 0 0 25px rgba(185, 151, 91, 0.5);
+        transform: scale(1.02);
+    }
+    50% {
+        border-color: var(--clr-gold);
+        box-shadow: 0 0 30px rgba(185, 151, 91, 0.6);
+        transform: scale(1.02);
+    }
+    100% {
+        border-color: rgba(185, 151, 91, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); /* Sombra rebajada sutil */
+        transform: scale(1);
+    }
+}
+
+.contacto__form-title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+    color: var(--clr-white);
+    margin-bottom: 0.5rem;
+}
+
+.contacto__form-desc {
+    font-family: var(--ff-body);
+    font-size: 1.05rem;
+    color: var(--clr-off-white);
+    opacity: 0.8;
+    margin-bottom: 1.25rem; /* Reducido de 2rem para compactar espacio vertical */
+    line-height: 1.5;
+}
+
+/* Formulario */
+.contacto__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Reducido de 1.25rem */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem; /* Reducido de 1.25rem */
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Inputs y Selects */
+.contacto__form input[type="text"],
+.contacto__form select,
+.contacto__form textarea {
+    width: 100%;
+    background-color: rgba(14, 11, 9, 0.7);
+    border: 1px solid rgba(216, 207, 197, 0.25);
+    color: var(--clr-white);
+    padding: 0.7rem 1.25rem; /* Reducido de 0.85rem 1.5rem */
+    font-family: var(--ff-body);
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contacto__form input[type="text"],
+.contacto__form select {
+    border-radius: var(--radius-sm); /* Curvatura suave de 8px para consistencia y estética premium */
+}
+
+.contacto__form select {
+    font-family: var(--ff-ui);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23b9975b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center; /* Ajustado por el padding horizontal */
+    padding-right: 2.75rem; /* Ajustado de 3rem */
+}
+
+.contacto__form textarea {
+    border-radius: var(--radius-sm); /* Consistencia con los campos de entrada */
+    resize: vertical;
+    min-height: 80px; /* Reducido de 100px */
+    height: 80px; /* Altura predeterminada compactada */
+    line-height: 1.6;
+}
+
+/* Focus states */
+.contacto__form input[type="text"]:focus,
+.contacto__form select:focus,
+.contacto__form textarea:focus {
+    border-color: var(--clr-gold);
+    background-color: rgba(14, 11, 9, 0.9);
+    box-shadow: 0 0 8px rgba(185, 151, 91, 0.2);
+}
+
+/* Placeholder color */
+.contacto__form input::placeholder,
+.contacto__form textarea::placeholder {
+    color: var(--clr-bone);
+    opacity: 0.45;
+}
+
+/* Input validation error highlight */
+.contacto__form input.form-error {
+    border-color: #d9383a !important;
+    box-shadow: 0 0 8px rgba(217, 56, 58, 0.25) !important;
+}
+
+/* Botones de Envío */
+.form-submit-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-submit-row button {
+    flex: 1;
+    min-width: 180px;
+    padding-block: 0.95rem;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 480px) {
+    .form-submit-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .form-submit-row button {
+        width: 100%;
+    }
+}
+
+.btn--whatsapp-form {
+    background-color: transparent;
+    color: var(--clr-gold);
+    border: 1px solid var(--clr-gold);
+}
+
+.btn--whatsapp-form:hover {
+    background-color: rgba(37, 211, 102, 0.08);
+    border-color: #25d366;
+    color: #25d366;
+    transform: translateY(-2px);
+}
+
+.btn--email-form {
+    background-color: transparent;
+    color: var(--clr-gold);
+    border: 1px solid var(--clr-gold);
+}
+
+.btn--email-form:hover {
+    background-color: var(--clr-gold);
+    color: var(--clr-dark);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   INTERFAZ DE FORMULARIO: TOGGLE SWITCH Y CHIPS DE VINOS (MULTISELECT)
+   ========================================================================== */
+
+/* -- Switch Premium para Selección de Cliente (Suelto en el formulario) -- */
+.form-group--switch {
+    display: flex;
+    align-items: center;
+    background-color: transparent; /* Removida la caja */
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    min-height: auto;
+    width: fit-content;
+    box-sizing: border-box;
+}
+
+/* Fila de switch sola para ajustar márgenes y soportar el campo Empresa al costado */
+.form-row--switch {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+@media (min-width: 601px) {
+    .form-row--switch {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.switch-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap; /* Evita saltos de línea por reajuste de ancho */
+}
+
+.switch-input {
+    /* Ocultación accesible de checkbox (screen-reader safe) */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.switch-slider {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(216, 207, 197, 0.25);
+    border-radius: 24px;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.switch-slider::before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--clr-bone);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.switch-label {
+    font-family: var(--ff-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    color: var(--clr-off-white);
+    opacity: 0.6;
+    font-weight: 400; /* Peso de fuente constante para evitar parpadeos y saltos de ancho */
+    transition: opacity 0.3s ease, color 0.3s ease; /* Removido font-weight de transition */
+}
+
+/* Cambios de Estado por Selección (Checked) */
+.switch-input:checked + .switch-slider {
+    background-color: rgba(185, 151, 91, 0.15);
+    border-color: var(--clr-gold);
+}
+
+.switch-input:checked + .switch-slider::before {
+    transform: translateX(24px);
+    background-color: var(--clr-gold);
+    box-shadow: 0 0 8px rgba(185, 151, 91, 0.6);
+}
+
+.switch-input:checked ~ .switch-label {
+    color: var(--clr-gold);
+    opacity: 1;
+    /* Peso constante para evitar saltos en el ancho y parpadeos al cargar el peso */
+}
+
+/* Soporte de accesibilidad para Focus */
+.switch-input:focus-visible + .switch-slider {
+    outline: 2px solid var(--clr-gold);
+    outline-offset: 2px;
+}
+
+/* -- Estilos Premium para la Multiselección de Vinos (Grid de 3 Columnas) -- */
+.multiselect-title {
+    font-family: var(--ff-ui);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--clr-gold);
+    margin-bottom: 0.5rem; /* Reducido de 0.85rem */
+    display: block;
+    font-weight: 600;
+}
+
+.multiselect-grid {
+    display: grid;
+    grid-template-columns: 0.7fr 1.15fr 1.15fr; /* Todos es más chico, las demás columnas tienen más espacio */
+    gap: 1rem; /* Reducido de 1.5rem */
+    margin-top: 0.5rem;
+    background-color: rgba(14, 11, 9, 0.4);
+    border: 1px solid rgba(216, 207, 197, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem; /* Reducido de 1.5rem */
+}
+
+.multiselect-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem; /* Reducido de 1.25rem */
+}
+
+/* Líneas divisorias verticales entre columnas en desktop */
+.multiselect-col:not(:last-child) {
+    border-right: 1px solid rgba(216, 207, 197, 0.12);
+    padding-right: 1.15rem; /* Reducido de 1.5rem */
+}
+
+.multiselect-header-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(216, 207, 197, 0.25);
+    color: var(--clr-bone);
+    padding: 0.55rem 1rem;
+    font-family: var(--ff-ui);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    width: 100%;
+}
+
+.multiselect-header-btn:hover {
+    background-color: var(--clr-white);
+    color: var(--clr-dark);
+    border-color: var(--clr-white);
+    transform: translateY(-1px);
+}
+
+.multiselect-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem; /* Reducido de 0.85rem */
+    justify-content: flex-start;
+}
+
+.multiselect-info-text {
+    font-family: var(--ff-body);
+    font-size: 0.8rem;
+    color: var(--clr-off-white);
+    opacity: 0.45;
+    line-height: 1.5;
+}
+
+.wine-chip {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+
+.chip-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.chip-text {
+    font-family: var(--ff-body);
+    font-size: 0.95rem;
+    color: var(--clr-white);
+    background-color: rgba(14, 11, 9, 0.4);
+    border: 1px solid rgba(216, 207, 197, 0.15);
+    padding: 0.45rem 1rem; /* Reducido de 0.55rem 1.25rem */
+    border-radius: var(--radius-pill); /* Píldoras redondas elegantes */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    font-weight: 400; /* Peso de fuente constante en ambos estados para evitar saltos en el ancho */
+}
+
+.wine-chip:hover .chip-text {
+    border-color: rgba(185, 151, 91, 0.6);
+    background-color: rgba(14, 11, 9, 0.8);
+    transform: translateY(-1px);
+}
+
+/* Estado Activo / Seleccionado de las Chips */
+.chip-input:checked + .chip-text {
+    background-color: rgba(185, 151, 91, 0.12);
+    border-color: var(--clr-gold);
+    color: var(--clr-gold);
+    font-weight: 400; /* Peso constante para evitar saltos en el ancho */
+    box-shadow: 0 0 10px rgba(185, 151, 91, 0.05);
+}
+
+.chip-input:focus-visible + .chip-text {
+    outline: 2px solid var(--clr-gold);
+    outline-offset: 2.5px;
+}
+
+/* Botón de vista rápida del vino (Icono ojo) */
+.wine-chip-view {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    opacity: 0.45;
+    transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.wine-chip-view:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    color: var(--clr-gold) !important;
+}
+
+.wine-chip-view svg {
+    vertical-align: middle;
+}
+
+/* En celulares las columnas se convierten en filas */
+@media (max-width: 768px) {
+    .multiselect-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.25rem;
+    }
+    
+    .multiselect-col:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid rgba(216, 207, 197, 0.12);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+    }
+    
+    .multiselect-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .wine-chip {
+        width: auto;
+    }
+    
+    .chip-text {
+        width: auto;
+        justify-content: flex-start;
+    }
+}
+
+/* Animación para aparición suave de campos condicionales (B2B) */
+.fade-in-field {
+    animation: fadeInField 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInField {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
