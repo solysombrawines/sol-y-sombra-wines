@@ -3634,6 +3634,55 @@ em {
 @media (min-width: 601px) {
     .form-row--switch {
         grid-template-columns: 1fr 1fr;
+        min-height: 42px; /* Altura constante para evitar saltos en desktop */
+    }
+}
+
+/* Campo condicional para Empresa o Negocio (B2B) - Transición ultra suave, accesible y sin saltos */
+/* Para navegadores antiguos / fallback: se muestra por defecto */
+#groupBusiness {
+    display: block;
+}
+
+@supports (display: flex) {
+    /* Navegadores modernos: se oculta por defecto y se aplica transiciones */
+    #groupBusiness {
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden; /* Evita que sea accesible por tabulación cuando está oculto */
+        overflow: hidden;
+        margin: 0;
+        pointer-events: none;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                    visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                    margin 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #groupBusiness[open] {
+        max-height: 80px; /* Suficiente para el input */
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        margin-top: 0.25rem;
+    }
+
+    @media (min-width: 601px) {
+        #groupBusiness {
+            max-height: none !important; /* Desactiva el colapso vertical en desktop ya que está al costado */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0;
+        }
+        
+        #groupBusiness[open] {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
     }
 }
 
@@ -3734,29 +3783,29 @@ em {
 .multiselect-grid {
     display: grid;
     grid-template-columns: 0.7fr 1.15fr 1.15fr; /* Todos es más chico, las demás columnas tienen más espacio */
-    gap: 1rem; /* Reducido de 1.5rem */
+    gap: 1rem;
     margin-top: 0.5rem;
-    background-color: rgba(14, 11, 9, 0.4);
-    border: 1px solid rgba(216, 207, 197, 0.15);
-    border-radius: var(--radius-sm);
-    padding: 1rem 1.25rem; /* Reducido de 1.5rem */
+    background-color: transparent; /* Minimalista: sin fondos sobre fondos */
+    border: none; /* Minimalista: sin bordes contenedores */
+    border-radius: 0;
+    padding: 0.5rem 0; /* Sin padding horizontal */
 }
 
 .multiselect-col {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem; /* Reducido de 1.25rem */
+    gap: 0.85rem;
 }
 
-/* Líneas divisorias verticales entre columnas en desktop */
+/* Líneas divisorias verticales muy tenues entre columnas en desktop */
 .multiselect-col:not(:last-child) {
-    border-right: 1px solid rgba(216, 207, 197, 0.12);
-    padding-right: 1.15rem; /* Reducido de 1.5rem */
+    border-right: 1px solid rgba(216, 207, 197, 0.06);
+    padding-right: 1.15rem;
 }
 
 .multiselect-header-btn {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(216, 207, 197, 0.25);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent; /* Sin bordes */
     color: var(--clr-bone);
     padding: 0.55rem 1rem;
     font-family: var(--ff-ui);
@@ -3766,22 +3815,21 @@ em {
     border-radius: var(--radius-pill);
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     font-weight: 600;
     width: 100%;
 }
 
 .multiselect-header-btn:hover {
-    background-color: var(--clr-white);
-    color: var(--clr-dark);
-    border-color: var(--clr-white);
+    background-color: rgba(255, 255, 255, 0.09);
+    color: var(--clr-white);
     transform: translateY(-1px);
 }
 
 .multiselect-list {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem; /* Reducido de 0.85rem */
+    gap: 0.6rem;
     justify-content: flex-start;
 }
 
@@ -3815,12 +3863,12 @@ em {
 .chip-text {
     font-family: var(--ff-body);
     font-size: 0.95rem;
-    color: var(--clr-white);
-    background-color: rgba(14, 11, 9, 0.4);
-    border: 1px solid rgba(216, 207, 197, 0.15);
-    padding: 0.45rem 1rem; /* Reducido de 0.55rem 1.25rem */
+    color: var(--clr-bone);
+    background-color: rgba(255, 255, 255, 0.03); /* Fondo muy sutil */
+    border: 1px solid transparent; /* Borde transparente para evitar cambios de tamaño */
+    padding: 0.45rem 1rem;
     border-radius: var(--radius-pill); /* Píldoras redondas elegantes */
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     user-select: none;
     display: inline-flex;
     align-items: center;
@@ -3831,15 +3879,15 @@ em {
 }
 
 .wine-chip:hover .chip-text {
-    border-color: rgba(185, 151, 91, 0.6);
-    background-color: rgba(14, 11, 9, 0.8);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--clr-white);
     transform: translateY(-1px);
 }
 
-/* Estado Activo / Seleccionado de las Chips */
+/* Estado Activo / Seleccionado de las Chips (Sin bordes, relleno dorado sutil) */
 .chip-input:checked + .chip-text {
-    background-color: rgba(185, 151, 91, 0.12);
-    border-color: var(--clr-gold);
+    background-color: rgba(185, 151, 91, 0.18); /* Relleno dorado translúcido */
+    border-color: transparent;
     color: var(--clr-gold);
     font-weight: 400; /* Peso constante para evitar saltos en el ancho */
     box-shadow: 0 0 10px rgba(185, 151, 91, 0.05);
@@ -3879,45 +3927,28 @@ em {
 @media (max-width: 768px) {
     .multiselect-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
-        padding: 1.25rem;
+        gap: 1.25rem;
+        padding: 0.5rem 0; /* Sin padding horizontal */
     }
     
     .multiselect-col:not(:last-child) {
         border-right: none;
-        border-bottom: 1px solid rgba(216, 207, 197, 0.12);
+        border-bottom: 1px solid rgba(216, 207, 197, 0.06);
         padding-right: 0;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1.25rem;
     }
     
     .multiselect-list {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: column; /* Apila las píldoras verticalmente en celular */
         gap: 0.75rem;
     }
     
     .wine-chip {
-        width: auto;
+        width: 100%; /* Ancho total para evitar clics accidentales en el ojo */
     }
     
     .chip-text {
-        width: auto;
-        justify-content: flex-start;
-    }
-}
-
-/* Animación para aparición suave de campos condicionales (B2B) */
-.fade-in-field {
-    animation: fadeInField 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes fadeInField {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+        width: 100%; /* Rellena el 100% del ancho */
+        justify-content: space-between; /* Alinea nombre a la izquierda y ojo a la derecha */
     }
 }

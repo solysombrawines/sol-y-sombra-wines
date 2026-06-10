@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clientTypeSelect.checked = true;
                 // Forzar actualización inmediata del campo Empresa/Negocio
                 if (typeof toggleBusinessField === 'function') {
-                    toggleBusinessField();
+                    toggleBusinessField(false);
                 }
             } else {
                 clientTypeSelect.value = 'distribuidor';
@@ -473,18 +473,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const groupBusiness = document.getElementById('groupBusiness');
         const inputBusiness = document.getElementById('formBusiness');
 
-        toggleBusinessField = () => {
+        toggleBusinessField = (shouldFocus = false) => {
             if (clientTypeInput && groupBusiness) {
                 if (clientTypeInput.checked) {
-                    groupBusiness.style.display = 'block';
-                    groupBusiness.classList.add('fade-in-field');
-                    if (inputBusiness) inputBusiness.required = true;
+                    groupBusiness.setAttribute('open', '');
+                    if (inputBusiness) {
+                        if (shouldFocus) {
+                            setTimeout(() => {
+                                inputBusiness.focus();
+                            }, 50);
+                        }
+                    }
                 } else {
-                    groupBusiness.style.display = 'none';
-                    groupBusiness.classList.remove('fade-in-field');
+                    groupBusiness.removeAttribute('open');
                     if (inputBusiness) {
                         inputBusiness.value = '';
-                        inputBusiness.required = false;
                         inputBusiness.classList.remove('form-error');
                     }
                 }
@@ -492,10 +495,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (clientTypeInput) {
-            clientTypeInput.addEventListener('change', toggleBusinessField);
+            clientTypeInput.addEventListener('change', () => toggleBusinessField(true));
         }
         // Inicializar el estado de visibilidad del campo comercial al cargar
-        toggleBusinessField();
+        toggleBusinessField(false);
 
         // Función de sanitización para proteger el formulario contra XSS e inyecciones
         const sanitizeInput = (str, maxLength = 500) => {
@@ -544,14 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
 
-            // Validar Empresa si es obligatorio (switch de Distribuidor activo)
-            if (businessInput && businessInput.required && !businessInput.value.trim()) {
-                businessInput.classList.add('form-error');
-                if (isValid) {
-                    businessInput.focus();
-                }
-                isValid = false;
-            }
+            // Campo Empresa no es obligatorio
 
             return isValid;
         };
@@ -639,17 +635,35 @@ document.addEventListener('DOMContentLoaded', () => {
             // Lógica para compilar los vinos de interés seleccionados
             let wineName = 'Consulta General';
             let wineVal = 'general';
+            let winesFormattedBody = 'Vino de interés: Consulta General';
 
             const checkedWines = chkAll.filter(cb => cb && cb.checked);
+            const selectedVarietales = chkVarietales.filter(cb => cb && cb.checked);
+            const selectedReservas = chkReservas.filter(cb => cb && cb.checked);
+
             if (checkedWines.length === 0 || checkedWines.length === chkAll.length) {
-                // Si no seleccionó ninguno o seleccionó todos, es Consulta General
                 wineName = 'Consulta General';
                 wineVal = 'general';
+                winesFormattedBody = 'Vino de interés: Consulta General';
             } else {
-                // Si seleccionó específicos, listarlos ordenados
                 const names = checkedWines.map(cb => getWineText(cb.value));
                 wineName = names.join(', ');
                 wineVal = checkedWines.map(cb => cb.value).join(',');
+
+                winesFormattedBody = 'Vinos de interés:';
+                const nameMap = {
+                    'varietal-malbec': 'Malbec',
+                    'varietal-cabernet': 'Cabernet Franc',
+                    'reserva-malbec': 'Malbec',
+                    'reserva-cabernet': 'Cabernet Franc'
+                };
+
+                if (selectedVarietales.length > 0) {
+                    winesFormattedBody += `\n*Varietales:*\n` + selectedVarietales.map(cb => `- _${nameMap[cb.value]}_`).join('\n');
+                }
+                if (selectedReservas.length > 0) {
+                    winesFormattedBody += `\n*Reservas:*\n` + selectedReservas.map(cb => `- _${nameMap[cb.value]}_`).join('\n');
+                }
             }
             
             const rawMessage = document.getElementById('formMessage').value;
@@ -657,26 +671,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sanitización profunda de los campos
             const name = sanitizeInput(rawName, 100);
             const business = sanitizeInput(rawBusiness, 150);
-            const message = sanitizeInput(rawMessage, 1000) || 'Sin comentarios adicionales.';
+            const message = sanitizeInput(rawMessage, 1000);
 
-            return { name, clientType, business, wineName, wineVal, message };
+            return { name, clientType, business, wineName, wineVal, winesFormattedBody, message };
         };
 
         btnSubmitWhatsapp.addEventListener('click', () => {
             if (!validateForm()) return;
             if (!checkRateLimit()) return;
-            const { name, clientType, business, wineName, message } = getFormValues();
+            const { name, clientType, business, winesFormattedBody, message } = getFormValues();
 
             let waMessage = `Hola Sol y Sombra!\n\n` +
                             `Mi nombre: ${name}\n`;
             
-            if (clientType === 'Distribuidor / Vinoteca' && business) {
-                waMessage += `Empresa/Negocio: ${business}\n`;
+            if (clientType === 'Distribuidor / Vinoteca') {
+                waMessage += `Distribuidor / Vinoteca\n`;
+                if (business) {
+                    waMessage += `Empresa/Negocio: ${business}\n`;
+                }
             }
             
-            waMessage += `Tipo de cliente: ${clientType}\n` +
-                         `Vino de interés: ${wineName}\n\n` +
-                         `Consulta:\n${message}`;
+            waMessage += `${winesFormattedBody}\n`;
+            
+            if (message && message.trim() !== '') {
+                waMessage += `\nConsulta:\n${message}`;
+            }
 
             const waUrl = `https://wa.me/5492617599941?text=${encodeURIComponent(waMessage)}`;
             window.open(waUrl, '_blank');
@@ -685,20 +704,26 @@ document.addEventListener('DOMContentLoaded', () => {
         btnSubmitEmail.addEventListener('click', () => {
             if (!validateForm()) return;
             if (!checkRateLimit()) return;
-            const { name, clientType, business, wineName, message } = getFormValues();
+            const { name, clientType, business, wineName, winesFormattedBody, message } = getFormValues();
 
-            const emailSubject = `Consulta Sol y Sombra — ${wineName} (${clientType})`;
+            const subjectSuffix = clientType === 'Distribuidor / Vinoteca' ? ' (Distribuidor / Vinoteca)' : '';
+            const emailSubject = `Consulta Sol y Sombra — ${wineName}${subjectSuffix}`;
             
             let emailBody = `Hola Sol y Sombra!\n\n` +
                             `Mi nombre: ${name}\n`;
             
-            if (clientType === 'Distribuidor / Vinoteca' && business) {
-                emailBody += `Empresa/Negocio: ${business}\n`;
+            if (clientType === 'Distribuidor / Vinoteca') {
+                emailBody += `Distribuidor / Vinoteca\n`;
+                if (business) {
+                    emailBody += `Empresa/Negocio: ${business}\n`;
+                }
             }
             
-            emailBody += `Tipo de cliente: ${clientType}\n` +
-                         `Vino de interés: ${wineName}\n\n` +
-                         `Consulta:\n${message}`;
+            emailBody += `${winesFormattedBody}\n`;
+            
+            if (message && message.trim() !== '') {
+                emailBody += `\nConsulta:\n${message}`;
+            }
 
             const mailtoUrl = `mailto:ventas@solysombrawines.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
             window.location.href = mailtoUrl;
