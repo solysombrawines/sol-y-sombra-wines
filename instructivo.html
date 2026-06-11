@@ -567,6 +567,7 @@
       <li class="nav-item" data-section="netlify"><a href="#netlify">5. Netlify</a></li>
       <li class="nav-item" data-section="dominio"><a href="#dominio">6. Migración Dominio (2027)</a></li>
       <li class="nav-item" data-section="seo-geo"><a href="#seo-geo">7. Mantenimiento SEO y GEO</a></li>
+      <li class="nav-item" data-section="analitica"><a href="#analitica">8. Analítica y Métricas</a></li>
     </ul>
   </div>
 
@@ -588,6 +589,7 @@
           <li class="nav-item" data-section="netlify"><a href="#netlify">5. Netlify</a></li>
           <li class="nav-item" data-section="dominio"><a href="#dominio">6. Migración Dominio (2027)</a></li>
           <li class="nav-item" data-section="seo-geo"><a href="#seo-geo">7. Mantenimiento SEO y GEO</a></li>
+          <li class="nav-item" data-section="analitica"><a href="#analitica">8. Analítica y Métricas</a></li>
         </ul>
       </nav>
     </aside>
@@ -1053,6 +1055,106 @@ Chicos, les paso un resumen del trabajo técnico de optimización que ya dejamos
    - *Qué hacer:* Realizar la mudanza del dominio al nuevo registrador (explicado en el paso 6 de la guía) para consolidar la infraestructura de por vida.
 
 *Tip de recordatorio:* Les sugiero agendar estas fechas en Google Calendar con la cuenta *solysombra.personal@gmail.com* y configurar avisos por correo electrónico para que el equipo reciba recordatorios automáticos de cada tarea.</div>
+      </section>
+
+      <!-- Section: Analítica y Métricas -->
+      <section id="analitica" class="guide-section">
+        <header class="section-header">
+          <h2 class="section-title">8. Métricas y Analítica Web (Google Analytics y Clarity)</h2>
+          <span class="section-badge">Analítica</span>
+        </header>
+        
+        <div class="section-body">
+          <p>Para medir el rendimiento del sitio web, saber de dónde vienen las visitas (redes sociales, buscadores, directo) y visualizar mapas de calor y grabaciones de navegación real en video, es necesario dar de alta las plataformas de analítica utilizando el correo maestro del proyecto (<code>solysombra.personal@gmail.com</code>).</p>
+          
+          <p>Siguiendo este instructivo, ustedes conservarán la propiedad legal y titularidad de los datos, delegándome acceso como colaborador técnico para que yo realice la implementación en el código sin necesidad de compartir sus contraseñas.</p>
+
+          <h3>Paso A: Configurar Google Analytics 4 (GA4)</h3>
+          <ol>
+            <li>Ingresen a <a href="https://analytics.google.com/" target="_blank">analytics.google.com</a> con el Gmail maestro <code>solysombra.personal@gmail.com</code>.</li>
+            <li>Hagan clic en **"Empezar a medir"** y completen la información básica:
+              <ul>
+                <li><strong>Nombre de la cuenta:</strong> <code>Sol y Sombra Wines</code> (dejen marcadas las opciones por defecto y pulsen Siguiente).</li>
+                <li><strong>Nombre de la propiedad:</strong> <code>Sitio Web Sol y Sombra</code>.</li>
+                <li><strong>Zona horaria de informes:</strong> <code>Argentina</code>.</li>
+                <li><strong>Moneda:</strong> <code>Peso Argentino (ARS)</code> o la que prefieran.</li>
+              </ul>
+            </li>
+            <li>Hagan clic en Siguiente, elijan las opciones correspondientes de tamaño y marquen la opción **"Medir la interacción de los clientes con mi sitio web o aplicación"** en la sección de objetivos comerciales. Denle a Crear y acepten las condiciones.</li>
+            <li>En la pantalla de selección de plataforma, elijan **Web**.</li>
+            <li>Ingresen la URL de su sitio web: en la casilla seleccionen <code>https://</code> y escriban <code>solysombrawines.com</code>. En el Nombre del flujo escriban <code>Web Principal</code>. Hagan clic en **Crear flujo**.</li>
+            <li>Les aparecerá una pantalla con detalles. Copien el **ID de medición** (código que empieza con <code>G-</code>) y pásenmelo por chat.</li>
+            <li><strong>Invitarme como colaborador:</strong>
+              <ul>
+                <li>Vayan al engranaje de **Administrar** abajo a la izquierda.</li>
+                <li>En la columna *Propiedad*, hagan clic en **Gestión de accesos de la propiedad**.</li>
+                <li>Hagan clic en el botón azul **"+"** arriba a la derecha, seleccionen **Añadir usuarios**, escriban mi correo y elijan el rol de **Editor**. Guardar.</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Paso B: Configurar Microsoft Clarity (Mapas de Calor y Videos)</h3>
+          <ol>
+            <li>Ingresen a <a href="https://clarity.microsoft.com/" target="_blank">clarity.microsoft.com</a>.</li>
+            <li>Hagan clic en iniciar sesión (Sign in) y seleccionen **"Sign in with Google"**, utilizando la cuenta <code>solysombra.personal@gmail.com</code>.</li>
+            <li>Hagan clic en **New Project** (Nuevo proyecto) y rellenen:
+              <ul>
+                <li><strong>Name:</strong> <code>Sol y Sombra Wines</code>.</li>
+                <li><strong>Website URL:</strong> <code>https://solysombrawines.com</code>.</li>
+              </ul>
+            </li>
+            <li>Hagan clic en **Add new project**.</li>
+            <li>En la pantalla que aparece, Clarity les mostrará un fragmento de código de instalación o un ID de proyecto corto. Copien ese ID y pásenmelo por chat.</li>
+            <li><strong>Invitarme como colaborador:</strong>
+              <ul>
+                <li>Dentro de su proyecto en Clarity, vayan a **Settings** (Configuración) en la barra superior.</li>
+                <li>En el menú izquierdo, hagan clic en **Team** (Equipo) y luego en **Add member**.</li>
+                <li>Escriban mi correo electrónico, seleccionen el rol de **Admin** y pulsen **Add**.</li>
+              </ul>
+            </li>
+          </ol>
+
+          <div class="warning-banner">
+            <strong>Nota sobre Medición de Ingresos</strong>
+            <p>Debido a que las ventas de la web se cierran de forma asistida derivando el pedido al WhatsApp del vendedor, los ingresos monetarios no ocurren directamente en el código de la web. Para consultar sus ingresos, utilicen el panel administrativo de sus pasarelas de pago (Mercado Pago o Stripe) o lleven el registro del canal de WhatsApp. En la web podremos medir la cantidad de clics en el botón de WhatsApp como un evento de conversión de Google Analytics.</p>
+          </div>
+        </div>
+
+        <div class="action-panel">
+          <div class="action-text">
+            <h4>Copiar Mensaje 8</h4>
+            <p>Guía paso a paso para el cliente para crear GA4 y Clarity y dar accesos de colaborador.</p>
+          </div>
+          <button class="btn-copy" onclick="copyText('txt-msg8', this)">Copiar para WhatsApp</button>
+        </div>
+        <!-- Hidden text block for copying -->
+        <div class="hidden-copy-data" id="txt-msg8">*📈 CONFIGURACIÓN DE MÉTRICAS Y ANALÍTICA WEB (Google Analytics y Clarity)*
+
+Chicos, les paso las instrucciones para dar de alta las herramientas de analítica. Con esto podremos ver cuánta gente nos visita, desde qué redes llegan y ver grabaciones en video y mapas de calor (dónde hacen clic exactamente) de los usuarios navegando por la web. 
+
+La idea es que ustedes sean los dueños de las cuentas usando el mail maestro (*solysombra.personal@gmail.com*), y me den acceso de colaborador técnico para que yo las instale:
+
+*Paso 1: Configurar Google Analytics 4 (Para visitas y procedencia)*
+1. Entren a: https://analytics.google.com con la cuenta *solysombra.personal@gmail.com*.
+2. Hagan clic en *"Empezar a medir"*.
+   - Nombre de cuenta: *Sol y Sombra Wines* (Denle a Siguiente).
+   - Nombre de propiedad: *Sitio Web Sol y Sombra*.
+   - Zona horaria: *Argentina*. Moneda: *Peso Argentino*.
+3. Avancen de pantalla, acepten términos y en el selector de plataforma elijan *Web*.
+   - URL del sitio: escriban *solysombrawines.com* (asegúrense de que a la izquierda diga *https://*).
+   - Nombre de flujo: *Web Principal*.
+4. Hagan clic en *Crear flujo*. Les saldrá una pantalla con detalles. Copien el *ID de medición* (el código que empieza con *G-*) y pásenmelo por chat.
+5. *Darme acceso:* Vayan a *Administrar* (engranaje abajo a la izquierda) > *Gestión de accesos de la propiedad*. Denle al botón *"+"* arriba a la derecha > *Añadir usuarios*, pongan mi correo y asígnenme el rol de *Editor*.
+
+*Paso 2: Configurar Microsoft Clarity (Para zonas de calor y videos de navegación)*
+1. Entren a: https://clarity.microsoft.com e inicien sesión seleccionando *"Sign in with Google"* usando el mail *solysombra.personal@gmail.com*.
+2. Hagan clic en *New Project* (Nuevo proyecto):
+   - Name: *Sol y Sombra Wines*
+   - Website URL: https://solysombrawines.com
+3. Hagan clic en *Add new project*. Les saldrá un código o un ID corto de proyecto en pantalla. Copien ese ID y pásenmelo por chat.
+4. *Darme acceso:* Vayan a *Settings* (arriba) > *Team* (menú de la izquierda) > *Add member*. Escriban mi correo, elijan el rol de *Admin* y denle a *Add*.
+
+Una vez que completen estos pasos y me pasen los códigos, yo me encargo de insertarlos en el servidor para que todo empiece a medir en tiempo real.</div>
       </section>
 
     </main>
